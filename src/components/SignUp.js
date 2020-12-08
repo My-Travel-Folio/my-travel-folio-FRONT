@@ -1,42 +1,69 @@
 import React from 'react'
 
-const SignUp = (props)=>{
+//DEPENDENCIAS
+import UserService from '../services/UserService';
+
+class SignUp extends React.Component {
   // const {submitSignUp, newUser, changeHandlerSignUp} = props
-  return(
+  state={
+    newUser: { name: '', lastName: '', email:'', password: '' },
+  }
+
+  service = new UserService();
+  
+
+  //SIGNUP CONFIG
+	submitSignUp = (event) => {
+		event.preventDefault();
+    	this.service.signup(this.state.newUser.name, this.state.newUser.lastName, this.state.newUser.email, this.state.newUser.password)
+		.then((result) => {
+			console.log(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	};
+
+	changeHandlerSignUp = (_eventTarget) => {
+		this.setState({ newUser: { ...this.state.newUser, [_eventTarget.name]: _eventTarget.value } });
+  };
+
+  render(){
+     return(
     <div>
       <h2>Sign Up</h2>
-      <form onSubmit={props.submitSignUp}>
+      <form onSubmit={this.submitSignUp}>
 
         <label htmlFor="name">Name: </label>
         <input 
           type="text" 
           name="name" 
-          value={props.newUser.name} 
-          onChange={(event)=>props.changeHandlerSignUp(event.target)}
+          value={this.state.newUser.name} 
+          onChange={(event)=>this.changeHandlerSignUp(event.target)}
         />
 
         <label htmlFor="lastName">Last name: </label>
         <input 
           type="text" 
           name="lastName" 
-          value={props.newUser.lastName} 
-          onChange={(event)=>props.changeHandlerSignUp(event.target)}
+          value={this.state.newUser.lastName} 
+          onChange={(event)=>this.changeHandlerSignUp(event.target)}
         />
 
         <label htmlFor="email">Email: </label>
         <input 
           type="text" 
           name="email" 
-          value={props.newUser.email} 
-          onChange={(event)=>props.changeHandlerSignUp(event.target)}
+          value={this.state.newUser.email} 
+          onChange={(event)=>this.changeHandlerSignUp(event.target)}
         />
 
         <label htmlFor="password">Password: </label>
         <input 
           type="password" 
           name="password" 
-          value={props.newUser.password} 
-          onChange={(event)=>props.changeHandlerSignUp(event.target)}
+          value={this.state.newUser.password} 
+          onChange={(event)=>this.changeHandlerSignUp(event.target)}
         />
 
         <button type="submit">Sign Up</button>
@@ -44,6 +71,8 @@ const SignUp = (props)=>{
       </form>
     </div>
   )
+  }
+ 
 }
 
 export default SignUp
