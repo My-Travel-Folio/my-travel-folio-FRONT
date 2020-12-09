@@ -5,7 +5,6 @@ const Home = (props)=>{
     <div>
       <h2>Home</h2>
       <h3>{props.isLogged.email && `Welcome, ${props.isLogged.name}`}</h3>
-      {props.isLogged.email && <button onClick={()=>props.logOut()}>Log Out</button>}
     </div>
   )
 }

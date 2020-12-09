@@ -17,7 +17,7 @@ class LogIn extends React.Component {
 		this.service
 			.login(this.state.loggingUser.email, this.state.loggingUser.password)
 			.then(() => {
-				this.checkIfLoggedIn()
+				this.props.checkIfLoggedIn()
 			})
 			.catch((err) => {
 				console.log('Sorry something went wrong on submit.', err);

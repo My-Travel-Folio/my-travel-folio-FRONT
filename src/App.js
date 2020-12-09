@@ -10,15 +10,17 @@ import LogIn from './components/LogIn';
 //DEPENDENCIAS
 import { Route } from 'react-router-dom';
 import UserService from './services/UserService';
+import MyProfile from './components/MyProfile';
 
 class App extends React.Component {
 
   state = {
-	isLogged: {}, //¿Cómo pasar esto por props? //Cómo afectan los estilos?
+	isLogged: {},
 	};
 
   service = new UserService();
-  
+
+  //Chequear usuario conectado
 	checkIfLoggedIn = () => {
     this.service.loggedin()
     .then((result)=>{
@@ -26,16 +28,31 @@ class App extends React.Component {
     })
   };
 
+	//LOGOUT CONFIG
+	logOut = ()=>{
+		this.service.logout()
+		.then((result)=>{
+			console.log(result)
+			this.checkIfLoggedIn()
+		})
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+
 	componentDidMount() {
 		this.checkIfLoggedIn();
 	}
+
 
   render() {
     return (
       <div className="App">
 	  
 		<NavBar 
+			isLogged={this.state.isLogged}
 			checkIfLoggedIn={this.checkIfLoggedIn}
+			logOut={this.logOut}
 		/>
 
 		<Route
@@ -48,15 +65,27 @@ class App extends React.Component {
         <Route
 			path="/login"
 			render={() => (
-			<LogIn/>
+			<LogIn
+			isLogged={this.state.isLogged}
+			checkIfLoggedIn={this.checkIfLoggedIn}
+			/>
 			)}
 		/>
 
         <Route 
 			exact path="/" 
-			render={()=><Home 
-			logOut={this.logOut} 
-			isLogged={this.state.isLogged} />} 
+			render={()=>
+			<Home
+			isLogged={this.state.isLogged}
+			/>} 
+		/>
+
+		{}
+        <Route
+			path="/my-profile"
+			render={() => (
+			<MyProfile/>
+			)}
 		/>
 
       </div>
