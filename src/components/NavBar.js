@@ -9,8 +9,6 @@ const NavBar = (props)=>{
     return(
         <div>
 
-          <Link to="/">Home Page</Link>
-          <br/>
           {!props.isLogged.email && <Link to="/signup">Sign Up</Link>}
           <br/>
           {!props.isLogged.email && <Link to="/login">Log In</Link>}

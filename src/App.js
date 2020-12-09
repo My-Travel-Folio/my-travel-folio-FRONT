@@ -80,9 +80,14 @@ class App extends React.Component {
         <Route 
 			exact path="/" 
 			render={()=>
-			<Home
-			isLogged={this.state.isLogged}
-			/>} 
+			!this.state.isLogged.email
+			? <Home
+				isLogged={this.state.isLogged}
+			/>
+			: <MyProfile
+				isLogged={this.state.isLogged}
+			/>
+			} 
 		/>
 
 		<Route
