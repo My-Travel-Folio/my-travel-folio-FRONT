@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
 
@@ -7,7 +8,7 @@ import TravelService from '../services/TravelService';
 class NewTravelForm extends React.Component {
 
   state={
-    newTravel: {userID: this.props.isLogged._id, travelName: '', startDate: '', finishDate: ''}
+    newTravel: {userID: this.props.isLogged._id, travelName: '', startDate: '' , finishDate: ''}
   }
 
   //Conexión Travel Service
@@ -30,7 +31,6 @@ class NewTravelForm extends React.Component {
   changeHandlerNewTravel = (_eventTarget) => {
 		this.setState({ newTravel: { ...this.state.newTravel, [_eventTarget.name]: _eventTarget.value } });
   };
-  
 
 
   render(){
