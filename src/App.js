@@ -18,6 +18,7 @@ class App extends React.Component {
 	isLogged: {},
 	};
 
+//Conexión User Service
   service = new UserService();
 
   //Chequear usuario conectado
