@@ -28,6 +28,7 @@ class MyProfile extends React.Component {
 
     //Función Botón All Travels
 
+
     handleAllTravels = ()=>{
         this.setState(
             {showAllTravels: !this.state.showAllTravels}
@@ -59,9 +60,9 @@ class MyProfile extends React.Component {
                 <br/>
                 <button onClick={this.handleAllTravels}>My Travels</button>
                 <br/>
-                {this.state.showNewTravelForm && <NewTravelForm />}
+                {this.state.showNewTravelForm && <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>}
                 <br/>
-                {this.state.showAllTravels && <MyTravels />}
+                {this.state.showAllTravels && <MyTravels isLogged={this.props.isLogged} />}
 
           
             </div>

@@ -87,6 +87,7 @@ class App extends React.Component {
 			/>
 			: <MyProfile
 				isLogged={this.state.isLogged}
+				checkIfLoggedIn={this.checkIfLoggedIn}
 			/>
 			} 
 		/>
