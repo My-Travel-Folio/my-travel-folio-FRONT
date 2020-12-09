@@ -8,7 +8,7 @@ import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 
 //DEPENDENCIAS
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import UserService from './services/UserService';
 import MyProfile from './components/MyProfile';
 
@@ -58,17 +58,22 @@ class App extends React.Component {
 		<Route
 			path="/signup"
 			render={() => (
-			<SignUp />
+				!this.state.isLogged.email
+				? <SignUp 
+					checkIfLoggedIn={this.checkIfLoggedIn}
+				/>
+				: <Redirect to='/' />
 			)}
 		/>
 
         <Route
 			path="/login"
 			render={() => (
-			<LogIn
-			isLogged={this.state.isLogged}
-			checkIfLoggedIn={this.checkIfLoggedIn}
-			/>
+				!this.state.isLogged.email
+				? <LogIn
+					checkIfLoggedIn={this.checkIfLoggedIn}
+				/>
+				: <Redirect to='/' />
 			)}
 		/>
 
@@ -80,11 +85,14 @@ class App extends React.Component {
 			/>} 
 		/>
 
-		{}
-        <Route
+		<Route
 			path="/my-profile"
 			render={() => (
-			<MyProfile/>
+			this.state.isLogged.email
+			? <MyProfile
+				isLogged={this.state.isLogged}
+			/>
+			: <Redirect to='/login' />
 			)}
 		/>
 

@@ -17,7 +17,7 @@ class SignUp extends React.Component {
 		event.preventDefault();
     	this.service.signup(this.state.newUser.name, this.state.newUser.lastName, this.state.newUser.email, this.state.newUser.password)
 		.then((result) => {
-			console.log(result);
+			this.props.checkIfLoggedIn();
 		})
 		.catch((err) => {
 			console.log(err);
