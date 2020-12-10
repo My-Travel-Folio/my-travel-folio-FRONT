@@ -13,7 +13,7 @@ class FileService {
     }
 
     newFile= (travelID, fileName, imageUrl, category, comment, date) => {
-    return this.service.post(`/new-travel/${travelID}`, {travelID, fileName, imageUrl, category, comment, date})
+    return this.service.post(`/new-file/${travelID}`, {travelID, fileName, imageUrl, category, comment, date})
     .then(response => response.data)
     }
 

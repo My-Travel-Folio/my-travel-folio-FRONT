@@ -12,8 +12,8 @@ class TravelService {
   this.service = service;
   }
 
-  newTravel = (userID, travelName, startDate, finishDate) => {
-  return this.service.post(`/new-travel/${userID}`, {userID, travelName, startDate, finishDate})
+  newTravel = (userID, travelName, startDate, endDate) => {
+  return this.service.post(`/new-travel/${userID}`, {userID, travelName, startDate, endDate})
   .then(response => response.data)
   }
 

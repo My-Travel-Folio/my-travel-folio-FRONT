@@ -8,7 +8,7 @@ class NewFileForm extends React.Component {
 
   state={
     newFile: {
-        travelID: /*ID del travel en singleTravel*/'',
+        travelID: this.props.singleTravelID,
         fileName: '',
         imageUrl: '',
         category: '',
@@ -23,7 +23,7 @@ class NewFileForm extends React.Component {
 
   submitNewFile = (event) => {
     event.preventDefault();
-      this.service.newTravel(
+      this.service.newFile(
           this.state.newFile.travelID,
           this.state.newFile.fileName,
           this.state.newFile.imageUrl,
@@ -52,7 +52,7 @@ class NewFileForm extends React.Component {
       <form onSubmit={this.submitNewFile}>
 
         <label htmlFor="fileName">File Name: </label>
-        <input 
+        <input
           type="text" 
           name="fileName" 
           value={this.state.newFile.fileName} 
@@ -63,16 +63,16 @@ class NewFileForm extends React.Component {
         <input 
           type="file" 
           name="imageUrl" 
-          value={this.state.newTravel.startDate} 
-          onChange={(event)=>this.changeHandlerNewTravel(event.target)}
+          value={this.state.newFile.imageUrl} 
+          onChange={(event)=>this.changeHandlerNewFile(event.target)}
         />
 
         <label htmlFor="category">Category: </label>
-        <select name="category" value={this.state.newFile.category} onChange={(event)=>this.changeHandlerNewTravel(event.target)}>
-            <option value='hotelReservation'>Hotel reservation</option>
-            <option value='transportTicket'>Transport ticket</option>
-            <option value='experienceTicket'>Experience ticket</option>
-            <option value='other'>Other</option>
+        <select name="category" value={this.state.newFile.category} onClick={(event)=>this.changeHandlerNewFile(event.target)}>
+          <option value='hotelReservation'>Hotel reservation</option>
+          <option value='transportTicket'>Transport ticket</option>
+          <option value='experienceTicket'>Experience ticket</option>
+          <option value='other'>Other</option>
         </select>
 
         <label htmlFor="comment">Comment: </label>
