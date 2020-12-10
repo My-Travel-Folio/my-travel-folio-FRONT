@@ -16,7 +16,7 @@ class FileService {
     return this.service.post(`/new-file/${travelID}`, {travelID, fileName, imageUrl, category, comment, date})
     .then(response => response.data)
     }
-
+  
     getUser = (userID) => {
         return this.service.get(`/get-user/${userID}`, {userID})
         .then(response => response.data)
