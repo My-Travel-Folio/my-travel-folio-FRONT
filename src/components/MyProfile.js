@@ -2,6 +2,7 @@ import React from 'react'
 import NewTravelForm from './NewTravelForm'
 import MyTravels from './MyTravels'
 
+
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
 
@@ -39,7 +40,6 @@ class MyProfile extends React.Component {
     getTravelData = ()=>{
         this.service.getAllTravels(this.props.isLogged._id)
         .then((response)=>{
-        
             this.setState({allTravels: response})
         })
     }

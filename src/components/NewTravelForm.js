@@ -1,5 +1,10 @@
 import React from 'react'
 
+// import { enGB } from 'date-fns/locale'
+// import { format } from 'date-fns'
+// import { DateRangePickerCalendar, START_DATE } from 'react-nice-dates'
+// import 'react-nice-dates/build/style.css'
+
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
@@ -8,7 +13,7 @@ import TravelService from '../services/TravelService';
 class NewTravelForm extends React.Component {
 
   state={
-    newTravel: {userID: this.props.isLogged._id, travelName: '', startDate: '' , finishDate: ''}
+    newTravel: {userID: this.props.isLogged._id, travelName: '', startDate: '' , endDate: ''}
   }
 
   //Conexión Travel Service
@@ -31,6 +36,16 @@ class NewTravelForm extends React.Component {
   changeHandlerNewTravel = (_eventTarget) => {
 		this.setState({ newTravel: { ...this.state.newTravel, [_eventTarget.name]: _eventTarget.value } });
   };
+
+  // export default function DateRangePickerCalendarExample() {
+    // onStartDateChange = (_eventTarget) => {
+    //   this.setState({newTravel: {...this.state.newTravel, [_eventTarget.startDate]: _eventTarget.value }})
+    // }
+    // [startDate, setStartDate] = useState()
+    // [endDate, setEndDate] = useState()
+    // [focus, setFocus] = useState(START_DATE)
+    // handleFocusChange = newFocus => {
+    //   setFocus(newFocus || START_DATE)
 
 
   render(){
@@ -64,6 +79,27 @@ class NewTravelForm extends React.Component {
           value={this.state.newTravel.finishDate} 
           onChange={(event)=>this.changeHandlerNewTravel(event.target)}
         />
+
+
+        {/* <div>
+          <p>Selected start date: {startDate ? format(startDate, 'dd MMM yyyy', { locale: enGB }) : 'none'}.</p>
+          <p>Selected end date: {endDate ? format(endDate, 'dd MMM yyyy', { locale: enGB }) : 'none'}.</p>
+          <p>Currently selecting: {focus}.</p>
+
+          <DateRangePickerCalendar
+            startDate={startDate}
+            endDate={endDate}
+            focus={focus}
+            onStartDateChange={setStartDate}
+            onEndDateChange={setEndDate}
+            onFocusChange={handleFocusChange}
+            locale={enGB}
+          />
+        </div> */}
+
+
+
+
 
         <button type="submit">Add New Travel</button>
 
