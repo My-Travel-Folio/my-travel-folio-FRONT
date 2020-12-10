@@ -3,17 +3,21 @@ import React from 'react'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 class NewFileForm extends React.Component {
 
   state={
     newFile: {
-        travelID: this.props.singleTravelID,
-        fileName: '',
-        imageUrl: '',
-        category: '',
-        comment: '',
-        date: '' }
+      travelID: this.props.singleTravelID,
+      fileName: '',
+      imageUrl: '',
+      category: '',
+      comment: '',
+      date: ''
+    }
   }
 
   //Conexión Travel Service
@@ -21,82 +25,98 @@ class NewFileForm extends React.Component {
 
   //NEW TRAVEL FORM CONFIG
 
-  submitNewFile = (event) => {
-    event.preventDefault();
-      this.service.newFile(
-          this.state.newFile.travelID,
-          this.state.newFile.fileName,
-          this.state.newFile.imageUrl,
-          this.state.newFile.category,
-          this.state.newFile.comment,
-          this.state.newFile.date)
-      .then(() => {
-        this.props.checkIfLoggedIn();
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ newFile: { ...this.state.newFile, [name]: value } })
+  }
+
+  handleFileUpload = e => {
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+    this.service.handleUpload(uploadData)
+      .then(response => {
+          return this.setState({ newFile: { ...this.state.newFile, imageUrl: response.secure_url } });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(err => {
+          console.log("Error while uploading the file: ", err);
       });
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.service.newFile(this.state.newFile)
+      .then(res => {
+          console.log('added: ', res);
+      })
+      .catch(err => {
+          console.log("Error while adding the thing: ", err);
+      });
+  }
 
-  changeHandlerNewFile = (_eventTarget) => {
-		this.setState({ newFile: { ...this.state.newFile, [_eventTarget.name]: _eventTarget.value } });
-  };
+  onChangeDatePicker = dates => {
+    const [start, end] = dates;
+    this.setState({this.state.startDate: start})
+    this.setState({this.state.endDate: end})
 
   render(){
-      return(
-    <div>
-      
-      <h2>Soy el formulario para subir un file</h2>
+    return(
+      <div>
+        <h2>Soy el formulario para subir un file</h2>
+        
+        <form onSubmit={e =>this.handleSubmit(e)}>
 
-      <form onSubmit={this.submitNewFile}>
+          <label htmlFor="fileName">File Name: </label>
+          <input
+            type="text" 
+            name="fileName"
+            onChange={(e)=>this.handleChange(e)}
+          />
 
-        <label htmlFor="fileName">File Name: </label>
-        <input
-          type="text" 
-          name="fileName" 
-          value={this.state.newFile.fileName} 
-          onChange={(event)=>this.changeHandlerNewFile(event.target)}
-        />
+          <label htmlFor="imageUrl">File: </label>
+          <input 
+            type="file" 
+            name="imageUrl"
+            onChange={(e)=>this.handleFileUpload(e)}
+          />
 
-        <label htmlFor="imageUrl">File: </label>
-        <input 
-          type="file" 
-          name="imageUrl" 
-          value={this.state.newFile.imageUrl} 
-          onChange={(event)=>this.changeHandlerNewFile(event.target)}
-        />
+          <label htmlFor="category">Category: </label>
+          <select name="category" onClick={(e)=>this.handleChange(e)}>
+            <option value='hotelReservation'>Hotel reservation</option>
+            <option value='transportTicket'>Transport ticket</option>
+            <option value='experienceTicket'>Experience ticket</option>
+            <option value='other'>Other</option>
+          </select>
 
-        <label htmlFor="category">Category: </label>
-        <select name="category" value={this.state.newFile.category} onClick={(event)=>this.changeHandlerNewFile(event.target)}>
-          <option value='hotelReservation'>Hotel reservation</option>
-          <option value='transportTicket'>Transport ticket</option>
-          <option value='experienceTicket'>Experience ticket</option>
-          <option value='other'>Other</option>
-        </select>
+          <label htmlFor="comment">Comment: </label>
+          <input 
+            type="text" 
+            name="comment" 
+            onChange={(e)=>this.handleChange(e)}
+          />
 
-        <label htmlFor="comment">Comment: </label>
-        <input 
-          type="text" 
-          name="comment" 
-          value={this.state.newFile.comment} 
-          onChange={(event)=>this.changeHandlerNewFile(event.target)}
-        />
+          <DatePicker
+            selected={startDate}
+            onChange={onChangeDatePicker}
+            startDate={startDate}
+            endDate={endDate}
+            selectsRange
+            inline
+          />
 
-        <label htmlFor="date">Date: </label>
-        <input 
-          type="text" 
-          name="date" 
-          value={this.state.newFile.date} 
-          onChange={(event)=>this.changeHandlerNewFile(event.target)}
-        />
 
-        <button type="submit">Upload file</button>
+          {/* <label htmlFor="date">Date: </label>
+          <input 
+            type="text" 
+            name="date" 
+            onChange={(e)=>this.handleChange(e)}
+          /> */}
 
-      </form>
+          <button type="submit">Upload file</button>
 
-    </div>
-  )
+        </form>
+
+      </div>
+    )
   }
 }
 

@@ -34,7 +34,6 @@ class NewTravelForm extends React.Component {
       });
   }
 
-
   changeHandlerNewTravel = (_eventTarget) => {
 		this.setState({ newTravel: { ...this.state.newTravel, [_eventTarget.name]: _eventTarget.value } });
   };

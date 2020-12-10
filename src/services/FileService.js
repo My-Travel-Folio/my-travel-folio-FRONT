@@ -10,12 +10,7 @@ class FileService {
     });
 
     this.service = service;
-    }
-
-    newFile= (travelID, fileName, imageUrl, category, comment, date) => {
-    return this.service.post(`/new-file/${travelID}`, {travelID, fileName, imageUrl, category, comment, date})
-    .then(response => response.data)
-    }
+  }
   
     getUser = (userID) => {
         return this.service.get(`/get-user/${userID}`, {userID})
@@ -27,6 +22,23 @@ class FileService {
         .then(response => response.data)
     }
 
+    errorHandler = (err) => {
+      // console.error(err);
+      throw err;
+    };
+    handleUpload (theFile) {
+        return this.service.post('/upload', theFile)
+          .then(res => {
+            console.log(res.data)
+            return res.data  
+          })
+          .catch(this.errorHandler);
+    }
+    newFile (newFile) {
+        return this.service.post('/new-file', newFile)
+          .then(res => res.data)
+          .catch(this.errorHandler);
+    }
 }
 
 export default FileService;
