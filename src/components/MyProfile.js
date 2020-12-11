@@ -12,7 +12,7 @@ class MyProfile extends React.Component {
 
     state={
         showNewTravelForm:  false,
-        showAllTravels: false, 
+        showAllTravels: true, 
         allTravels: []
     }
 
@@ -49,6 +49,9 @@ class MyProfile extends React.Component {
     }
 
     render(){
+
+        const buttonText = !this.state.showNewTravelForm ? 'Add new travel' : 'Back to my travels'
+
         return(
             <div>
                 <h2>My Profile</h2>
@@ -56,13 +59,11 @@ class MyProfile extends React.Component {
                 <p>Past travels</p>
                 <h3>{this.props.isLogged.email && `Welcome, ${this.props.isLogged.name}`}</h3>
                 <br/>
-                <button onClick={this.handleNewTravelForm}>Add New Travel</button>
+                <button onClick={this.handleNewTravelForm}>{buttonText}</button>
                 <br/>
-                <button onClick={this.handleAllTravels}>My Travels</button>
-                <br/>
-                {this.state.showNewTravelForm && <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>}
-                <br/>
-                {this.state.showAllTravels && <MyTravels allTravels={this.state.allTravels} />}
+                {this.state.showNewTravelForm 
+                ? <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
+                : <MyTravels allTravels={this.state.allTravels} />}
             </div>
         )
     }

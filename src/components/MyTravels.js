@@ -8,7 +8,7 @@ import MySingleTravel from './MySingleTravel'
 class MyTravels extends React.Component {
 
   state={
-    showSingleTravel: false,
+    // showSingleTravel: false,
     singleTravel: '',
     mySingleTravelFiles: ''
   }
@@ -23,6 +23,10 @@ class MyTravels extends React.Component {
     .then((response)=>{
         this.setState({singleTravel: response})
     })
+  }
+
+  clearSingleTravel = () => {
+    this.setState({singleTravel: ''})
   }
 
   getFilesData = (travelID)=>{
@@ -41,24 +45,33 @@ class MyTravels extends React.Component {
 
 
   render() {
-    return(
-      <div>
+
+    if(!this.state.singleTravel) {
+      return (
+        <div>
           <h2>My Travels</h2>
           {this.props.allTravels.map((travel, index)=>(
             <button
-            key={index}
-            onClick={()=>this.handleSingleTravel(travel._id)}
-            >
+              key={index}
+              onClick={()=>this.handleSingleTravel(travel._id)}>
               <div>
                 <p>{travel.travelName}</p>
                 <p>{travel.startDate}</p>
               </div>     
             </button>
           ))}
-        <br />
-        {this.state.mySingleTravelFiles && <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>}
-      </div>
-    )    
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <h2>My Single Travel</h2>
+          <button onClick={this.clearSingleTravel}>Back to my travels</button>
+          <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>
+        </div>
+        
+      )  
+    }  
   }
 }
 

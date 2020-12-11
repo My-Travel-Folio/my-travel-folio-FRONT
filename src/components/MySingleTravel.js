@@ -45,7 +45,7 @@ class MySingleTravel extends React.Component {
     render() {
         return(
         <div>
-            <h2>My Single Travel</h2>
+            
             <button onClick={this.handleNewFileForm}>Add file</button>
             <p>{this.props.singleTravel.travelName}</p>
             <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
