@@ -2,6 +2,7 @@ import React from 'react'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService'
+import FileService from '../services/FileService';
 import MySingleTravel from './MySingleTravel'
 
 class MyTravels extends React.Component {
@@ -9,16 +10,26 @@ class MyTravels extends React.Component {
   state={
     showSingleTravel: false,
     singleTravel: '',
-    singleTravelID: ''
+    singleTravelID: '',
+    mySingleTravelFiles: ''
   }
 
   //Conexión Travel Service
   service = new TravelService();
+  service = new FileService();
+  
 
   getSingleTravelData = ()=>{
     this.service.getTravel(this.state.singleTravelID)
     .then((response)=>{
         this.setState({singleTravel: response})
+    })
+  }
+
+  getFilesData = ()=>{
+    this.service.getTravelFiles(this.state.singleTravelID)
+    .then((response)=>{
+        this.setState({mySingleTravelFiles: response})
     })
   }
 
@@ -28,6 +39,7 @@ class MyTravels extends React.Component {
     ) 
     setTimeout (() => {
       this.getSingleTravelData()
+      this.getFilesData()
     }, 100)
   }
 
@@ -47,7 +59,7 @@ class MyTravels extends React.Component {
             </button>
           ))}
         <br />
-        {this.state.singleTravel && <MySingleTravel singleTravel={this.state.singleTravel} />}
+        {this.state.singleTravel && <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>}
       </div>
     )    
   }

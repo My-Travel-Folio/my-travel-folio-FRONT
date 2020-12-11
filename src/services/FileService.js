@@ -22,10 +22,23 @@ class FileService {
         .then(response => response.data)
     }
 
+    getTravelFiles = (travelID) => {
+      return this.service.get(`/files/${travelID}`, {travelID})
+      .then(response => response.data)
+    }
+
+    getFile = (fileID) => {
+      return this.service.get(`/get-file/${fileID}`, {fileID})
+      .then((response)=>{
+          return response.data
+      })
+    }
+
     errorHandler = (err) => {
       // console.error(err);
       throw err;
     };
+
     handleUpload (theFile) {
         return this.service.post('/upload', theFile)
           .then(res => {
@@ -34,11 +47,14 @@ class FileService {
           })
           .catch(this.errorHandler);
     }
+
     newFile (newFile) {
         return this.service.post('/new-file', newFile)
           .then(res => res.data)
           .catch(this.errorHandler);
     }
+
+    
 }
 
 export default FileService;

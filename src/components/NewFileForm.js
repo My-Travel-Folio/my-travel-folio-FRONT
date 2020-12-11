@@ -3,7 +3,7 @@ import React from 'react'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -53,10 +53,10 @@ class NewFileForm extends React.Component {
       });
   }
 
-  onChangeDatePicker = dates => {
-    const [start, end] = dates;
-    this.setState({this.state.startDate: start})
-    this.setState({this.state.endDate: end})
+  // onChangeDatePicker = dates => {
+  //   const [start, end] = dates;
+  //   this.setState({this.state.startDate: start})
+  //   this.setState({this.state.endDate: end})
 
   render(){
     return(
@@ -93,7 +93,7 @@ class NewFileForm extends React.Component {
             name="comment" 
             onChange={(e)=>this.handleChange(e)}
           />
-
+{/* 
           <DatePicker
             selected={startDate}
             onChange={onChangeDatePicker}
@@ -101,15 +101,15 @@ class NewFileForm extends React.Component {
             endDate={endDate}
             selectsRange
             inline
-          />
+          /> */}
 
 
-          {/* <label htmlFor="date">Date: </label>
+          <label htmlFor="date">Date: </label>
           <input 
             type="text" 
             name="date" 
             onChange={(e)=>this.handleChange(e)}
-          /> */}
+          />
 
           <button type="submit">Upload file</button>
 
