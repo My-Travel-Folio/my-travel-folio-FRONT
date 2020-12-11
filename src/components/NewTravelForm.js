@@ -1,4 +1,5 @@
 import React from 'react'
+import DatePicker from 'react-datepicker'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
@@ -10,9 +11,10 @@ class NewTravelForm extends React.Component {
     newTravel: {
       userID: this.props.isLogged._id,
       travelName: '',
-      startDate: {} ,
-      endDate: {}}
-  }
+      startDate: new Date() , 
+      endDate: new Date()
+  },
+}
 
   //Conexión Travel Service
   service = new TravelService();
@@ -38,6 +40,16 @@ class NewTravelForm extends React.Component {
 		this.setState({ newTravel: { ...this.state.newTravel, [_eventTarget.name]: _eventTarget.value } });
   };
 
+  onChangeStart = (date) =>{
+    const start = date
+    this.setState({newTravel: { ...this.state.newTravel, startDate: start}}) 
+  }
+
+  onChangeEnd = (date) =>{
+    const end = date
+    this.setState({newTravel: { ...this.state.newTravel, endDate: end}}) 
+  }
+
   render(){
       return(
     <div>
@@ -54,7 +66,19 @@ class NewTravelForm extends React.Component {
           onChange={(event)=>this.changeHandlerNewTravel(event.target)}
         />
 
-
+        <div>
+          <DatePicker
+            selected={this.state.newTravel.startDate}
+            onChange={this.onChangeStart}
+            dateFormat="dd/MM/yyyy"
+           />
+            <DatePicker
+            selected={this.state.newTravel.endDate}
+            onChange={this.onChangeEnd}
+            dateFormat="dd/MM/yyyy"
+           />
+    
+        </div>
 
         <button type="submit">Add New Travel</button>
 

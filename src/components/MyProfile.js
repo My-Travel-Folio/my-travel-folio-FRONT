@@ -63,8 +63,6 @@ class MyProfile extends React.Component {
                 {this.state.showNewTravelForm && <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>}
                 <br/>
                 {this.state.showAllTravels && <MyTravels allTravels={this.state.allTravels} />}
-
-          
             </div>
         )
     }

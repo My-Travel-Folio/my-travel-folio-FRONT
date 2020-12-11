@@ -8,7 +8,9 @@ import FileService from '../services/FileService';
 class MySingleTravel extends React.Component {
 
     state= {
+        singleTravelID: this.props.singleTravel._id,
         showSingleFile: false,
+        showNewFileForm: false, 
         singleFile: '',
         singleFileID: '',
     }

@@ -10,7 +10,6 @@ class MyTravels extends React.Component {
   state={
     showSingleTravel: false,
     singleTravel: '',
-    singleTravelID: '',
     mySingleTravelFiles: ''
   }
 
@@ -19,29 +18,27 @@ class MyTravels extends React.Component {
   service = new FileService();
   
 
-  getSingleTravelData = ()=>{
-    this.service.getTravel(this.state.singleTravelID)
+  getSingleTravelData = (_id)=>{
+    this.service.getTravel(_id)
     .then((response)=>{
         this.setState({singleTravel: response})
     })
   }
 
-  getFilesData = ()=>{
-    this.service.getTravelFiles(this.state.singleTravelID)
+  getFilesData = (travelID)=>{
+    this.service.getTravelFiles(travelID)
     .then((response)=>{
         this.setState({mySingleTravelFiles: response})
     })
   }
 
   handleSingleTravel = (travelID)=>{
-    this.setState(
-        {singleTravelID: travelID}
-    ) 
-    setTimeout (() => {
-      this.getSingleTravelData()
-      this.getFilesData()
-    }, 100)
+    
+      this.getSingleTravelData(travelID)
+  
+      this.getFilesData(travelID)
   }
+
 
   render() {
     return(
@@ -59,7 +56,7 @@ class MyTravels extends React.Component {
             </button>
           ))}
         <br />
-        {this.state.singleTravel && <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>}
+        {this.state.mySingleTravelFiles && <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>}
       </div>
     )    
   }

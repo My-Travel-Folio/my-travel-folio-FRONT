@@ -1,4 +1,5 @@
 import React from 'react'
+import DatePicker from 'react-datepicker'
 
 //DEPENDENCIAS
 import FileService from '../services/FileService';
@@ -16,7 +17,7 @@ class NewFileForm extends React.Component {
       imageUrl: '',
       category: '',
       comment: '',
-      date: ''
+      date: new Date()
     }
   }
 
@@ -53,10 +54,9 @@ class NewFileForm extends React.Component {
       });
   }
 
-  // onChangeDatePicker = dates => {
-  //   const [start, end] = dates;
-  //   this.setState({this.state.startDate: start})
-  //   this.setState({this.state.endDate: end})
+  onChangeDate = (date) =>{
+    this.setState({newFile: { ...this.state.newFile, date}}) 
+  }
 
   render(){
     return(
@@ -93,23 +93,12 @@ class NewFileForm extends React.Component {
             name="comment" 
             onChange={(e)=>this.handleChange(e)}
           />
-{/* 
+
           <DatePicker
-            selected={startDate}
-            onChange={onChangeDatePicker}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            inline
-          /> */}
-
-
-          <label htmlFor="date">Date: </label>
-          <input 
-            type="text" 
-            name="date" 
-            onChange={(e)=>this.handleChange(e)}
-          />
+            selected={this.state.newFile.date}
+            onChange={this.onChangeDate}
+            dateFormat="dd/MM/yyyy"
+           />
 
           <button type="submit">Upload file</button>
 
