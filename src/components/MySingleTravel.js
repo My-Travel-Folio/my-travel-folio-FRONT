@@ -63,7 +63,7 @@ class MySingleTravel extends React.Component {
                 </div>     
                 ))}
 
-                {this.state.showSingleFile && <SingleFile singleFile={this.state.singleFile}/>}
+            {this.state.showSingleFile && <SingleFile singleFile={this.state.singleFile} singleTravelID={this.state.singleTravelID}/>}
 
         </div>
         )         

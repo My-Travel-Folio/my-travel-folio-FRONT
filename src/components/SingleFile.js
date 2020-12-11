@@ -4,7 +4,7 @@ import ViewFile from './ViewFile'
 class SingleFile extends React.Component {
 
     state= {
-        imageUrl: this.props.singleFile.imageUrl,
+        // imageUrl: this.props.singleFile.imageUrl,
         showViewFile: false
     }
 
@@ -27,7 +27,7 @@ class SingleFile extends React.Component {
                     <p>Comment: {this.props.singleFile.comment}</p>
                     <button onClick={this.handleViewFile}>View File</button>
                     <button>Download File</button>
-                    {this.state.showViewFile && <ViewFile imageUrl={this.state.imageUrl}/>}
+                    {this.state.showViewFile && <ViewFile imageUrl={this.props.singleFile.imageUrl}/>}
                 </div>     
             </div>
 
