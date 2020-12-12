@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 class ViewFile extends React.Component {
 
 
@@ -8,10 +7,9 @@ class ViewFile extends React.Component {
         return(
 
             <div>
-                <h2>My Single File</h2>
                 <div >
                     {/* <object data={this.props.imageUrl}  aria-label="fileView"></object> */}
-                    <embed src={this.props.imageUrl} width="800px" height="2100px" />
+                    <embed src={this.props.imageUrl} width="50%" height="auto" />
                     {/* <img src={this.props.imageUrl} alt="img"></img> */}
                 </div>     
             </div>

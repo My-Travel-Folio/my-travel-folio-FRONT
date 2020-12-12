@@ -8,67 +8,96 @@ import FileService from '../services/FileService';
 class MySingleTravel extends React.Component {
 
     state= {
-        singleTravelID: this.props.singleTravel._id,
         showSingleFile: false,
         showNewFileForm: false, 
         singleFile: '',
-        singleFileID: '',
     }
 
     service = new FileService();
 
-    getSingleFile = ()=>{
-        this.service.getFile(this.state.singleFileID)
+    //          GET DATA FROM DB
+            
+    // SINGLE FILE INFO
+    getSingleFile = (_id)=>{
+        this.service.getFile(_id)
         .then((response)=>{
             this.setState({singleFile: response})
         })
-      }
+    }
 
+    //          HANDLE FUNCTIONS
+
+    //SHOW FILE FORM
     handleNewFileForm = ()=>{
         this.setState(
             {showNewFileForm: !this.state.showNewFileForm}
         )
     }
     
+    // SHOW SINGLE FILE
     handleSingleFile = (fileID)=>{
-        this.setState(
-            {singleFileID: fileID}
-        ) 
-        
+        this.getSingleFile(fileID)
         this.setState( {showSingleFile: !this.state.showSingleFile})
-       
-        setTimeout (() => {
-          this.getSingleFile()
-        }, 100)
-      }
+    }
+
+
+    sortByDate () {
+        let newTravelFiles = [...this.state.mySingleTravelFiles].sort((a, b) => a.date > b.date)
+        this.setState({
+            mySingleTravelFiles: newTravelFiles
+        })
+    }
+
+    // LIFECYCLE METHODS
+
+    componentDidMount() {
+        this.getSingleFile(this.state.singleFile._id)
+    }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.mySingleTravelFiles !== prevProps.mySingleTravelFiles) {
+    //         this.props.getFilesData(this.props.singleTravel._id)
+    //     }
+    // }
 
     render() {
-        return(
-        <div>
-            
-            <button onClick={this.handleNewFileForm}>Add file</button>
-            <p>{this.props.singleTravel.travelName}</p>
-            <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
+                        // ESTO CÓMO PUEDE SER QUE ESTÉ FUNCIONANDO AL REVÉS???
 
-            {this.state.showNewFileForm && <NewFileForm singleTravelID={this.state.singleTravelID}/>}
+        if(!this.state.showNewFileForm) {        
+            if(this.state.showSingleFile) {
+                return (
+                    <div>
+                        <button onClick={this.handleSingleFile}>Back to {this.props.singleTravel.travelName}</button>
+                        <SingleFile singleFile={this.state.singleFile} singleTravelID={this.props.singleTravel._id} />
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <button onClick={this.handleNewFileForm}>Add file</button>
+                            <p>{this.props.singleTravel.travelName}</p>
+                            <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
 
-                {this.props.mySingleTravelFiles.map((singleFile, index)=>(
-                <div key={index}>
-
-                    <button onClick={()=>this.handleSingleFile(singleFile._id)}>
-                        <p>Day: {singleFile.date}</p>
-                        <p>{singleFile.fileName}</p>
-                    </button>
-
-                </div>     
-                ))}
-
-            {this.state.showSingleFile && <SingleFile singleFile={this.state.singleFile} singleTravelID={this.state.singleTravelID}/>}
-
-        </div>
-        )         
+                        {this.props.mySingleTravelFiles.map((singleFile, index)=>(
+                            <div key={index}>
+                                <button onClick={()=>this.handleSingleFile(singleFile._id)}>
+                                    <p>Day: {singleFile.date}</p>
+                                    <p>{singleFile.fileName}</p>
+                                </button>
+                            </div>     
+                        ))}
+                    </div>
+                )
+            }
+        } else {
+            return(
+                <div>
+                    <NewFileForm singleTravelID={this.props.singleTravel._id}/>
+                    <button onClick={this.handleNewFileForm}>Back to {this.props.singleTravel.travelName}</button>
+                </div>
+            )
+        }      
     }
-  
 }
 
 export default MySingleTravel

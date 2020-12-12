@@ -17,7 +17,9 @@ class MyTravels extends React.Component {
   service = new TravelService();
   service = new FileService();
   
-
+            // GET DATA FROM DB
+            
+  // SINGLE TRAVEL INFO
   getSingleTravelData = (_id)=>{
     this.service.getTravel(_id)
     .then((response)=>{
@@ -25,10 +27,7 @@ class MyTravels extends React.Component {
     })
   }
 
-  clearSingleTravel = () => {
-    this.setState({singleTravel: ''})
-  }
-
+  // SINGLE TRAVEL FILES INFO
   getFilesData = (travelID)=>{
     this.service.getTravelFiles(travelID)
     .then((response)=>{
@@ -36,13 +35,26 @@ class MyTravels extends React.Component {
     })
   }
 
-  handleSingleTravel = (travelID)=>{
-    
-      this.getSingleTravelData(travelID)
-  
-      this.getFilesData(travelID)
+
+  //      LIFECYLE METHODS
+  componentDidMount() {
+    this.getSingleTravelData()
+    this.getFilesData()
   }
 
+  // EMPTY STATE
+  clearSingleTravel = () => {
+    this.setState({singleTravel: ''})
+  }
+
+  //      HANDLE FUNCTIONS
+
+  handleSingleTravel = (travelID)=>{
+    this.getSingleTravelData(travelID)
+    this.getFilesData(travelID)
+  }
+
+  //          RENDER
 
   render() {
 
@@ -67,7 +79,7 @@ class MyTravels extends React.Component {
         <div>
           <h2>My Single Travel</h2>
           <button onClick={this.clearSingleTravel}>Back to my travels</button>
-          <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles}/>
+          <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles} getFilesData={this.getFilesData}/>
         </div>
         
       )  

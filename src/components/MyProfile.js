@@ -19,6 +19,23 @@ class MyProfile extends React.Component {
     //Conexión Travel Service
     service = new TravelService();
 
+            // GET DATA FROM DB
+
+    getTravelData = ()=>{
+        this.service.getAllTravels(this.props.isLogged._id)
+        .then((response)=>{
+            this.setState({allTravels: response})
+        })
+    }
+        
+    // LIFECYCLE METHODS
+
+    componentDidMount() {
+        this.getTravelData()
+    }
+
+                  // HANDLE FUNCTIONS
+
     //Función Botón Add New Travel
 
     handleNewTravelForm = ()=>{
@@ -35,18 +52,8 @@ class MyProfile extends React.Component {
             {showAllTravels: !this.state.showAllTravels}
         )
     }
-    
-    //Función para recibir todos los viajes
-    getTravelData = ()=>{
-        this.service.getAllTravels(this.props.isLogged._id)
-        .then((response)=>{
-            this.setState({allTravels: response})
-        })
-    }
 
-    componentDidMount() {
-        this.getTravelData()
-    }
+                // RENDER
 
     render(){
 
@@ -55,8 +62,6 @@ class MyProfile extends React.Component {
         return(
             <div>
                 <h2>My Profile</h2>
-                <p>Upcoming travels</p>
-                <p>Past travels</p>
                 <h3>{this.props.isLogged.email && `Welcome, ${this.props.isLogged.name}`}</h3>
                 <br/>
                 <button onClick={this.handleNewTravelForm}>{buttonText}</button>
