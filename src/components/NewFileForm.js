@@ -15,7 +15,7 @@ class NewFileForm extends React.Component {
       travelID: this.props.singleTravelID,
       fileName: '',
       imageUrl: '',
-      category: 'Other',
+      category: 'other',
       comment: '',
       date: new Date()
     }
@@ -81,11 +81,10 @@ class NewFileForm extends React.Component {
 
           <label htmlFor="category">Category: </label>
           <select name="category" onClick={(e)=>this.handleChange(e)}>
-            <option disabled>Select a category</option>
-            <option>Hotel reservation</option>
-            <option>Transport ticket</option>
-            <option>Experience ticket</option>
-            <option>Other</option>
+            <option value="other">Other</option>
+            <option value="hotelReservation">Hotel reservation</option>
+            <option value="transportTicket">Transport ticket</option>
+            <option value="experienceTicket">Experience ticket</option>
           </select>
 
           <label htmlFor="comment">Comment: </label>

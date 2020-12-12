@@ -11,6 +11,7 @@ class MySingleTravel extends React.Component {
         showSingleFile: false,
         showNewFileForm: false, 
         singleFile: '',
+        mySingleTravelFiles: this.props.mySingleTravelFiles
     }
 
     service = new FileService();
@@ -25,7 +26,22 @@ class MySingleTravel extends React.Component {
         })
     }
 
+    // FILTER FILES BY CATEGORY
+    getSearchTravelFiles = ()=>{
+        this.service.getSearchTravelFiles()
+        .then((response)=>{
+            this.setState({mySingleTravelFiles: response})
+        })
+    }
+
     //          HANDLE FUNCTIONS
+
+    //HOTEL FILTER
+    handleSearchTravelFilesHotel = () => {
+        // const hotelReservation = 'hotelReservation'
+        console.log('Hola')
+        this.getSearchTravelFiles()
+    }
 
     //SHOW FILE FORM
     handleNewFileForm = ()=>{
@@ -74,6 +90,7 @@ class MySingleTravel extends React.Component {
             } else {
                 return (
                     <div>
+                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button>
                         <button onClick={this.handleNewFileForm}>Add file</button>
                             <p>{this.props.singleTravel.travelName}</p>
                             <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
