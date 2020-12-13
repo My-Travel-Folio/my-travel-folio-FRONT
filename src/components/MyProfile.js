@@ -5,6 +5,7 @@ import MyTravels from './MyTravels'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
+import {Container, Col, Row, Button, Card} from 'react-bootstrap'
 
 // import NewTravelForm from './NewTravelForm';
 
@@ -61,14 +62,48 @@ class MyProfile extends React.Component {
 
         return(
             <div>
-                <h2>My Profile</h2>
-                <h3>{this.props.isLogged.email && `Welcome, ${this.props.isLogged.name}`}</h3>
-                <br/>
-                <button onClick={this.handleNewTravelForm}>{buttonText}</button>
-                <br/>
-                {this.state.showNewTravelForm 
-                ? <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
-                : <MyTravels allTravels={this.state.allTravels} />}
+                <Container>
+                    <Row className="mt-4">
+                        <Col>
+                            <Row className="text-left">
+                                <Col>
+                                    <p>{this.props.isLogged.email && `Welcome to Travel Folio, ${this.props.isLogged.name}`}</p>
+                                </Col>
+                            </Row>
+
+                            <Row className="mx-auto">
+                                <Col>
+                                    <Button className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
+                                </Col>
+                            </Row>
+
+                            <Row className="mx-auto">
+                                <Col>
+                                    <Card className="mt-4 p-4 text-center" >
+                                        <Card.Body>
+        
+                                            {this.state.showNewTravelForm 
+                                            ? <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
+                                            : <MyTravels allTravels={this.state.allTravels} />}
+
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+
+
+                            
+                            
+
+
+                        </Col>
+                    </Row>
+                </Container>
+
+
+
+
+
             </div>
         )
     }

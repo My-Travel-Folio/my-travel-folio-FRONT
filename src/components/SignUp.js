@@ -2,6 +2,7 @@ import React from 'react'
 
 //DEPENDENCIAS
 import UserService from '../services/UserService';
+import {Container, Col, Row, Form, Button, Card} from 'react-bootstrap'
 
 class SignUp extends React.Component {
   // const {submitSignUp, newUser, changeHandlerSignUp} = props
@@ -32,49 +33,92 @@ class SignUp extends React.Component {
 
   render(){
      return(
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={this.submitSignUp}>
 
-        <label htmlFor="name">Name: </label>
-        <input 
-          type="text" 
-          name="name" 
-          value={this.state.newUser.name} 
-          onChange={(event)=>this.changeHandlerSignUp(event.target)}
-        />
+      <div className="sign-up">
+        <Container>
+          <Row>
+            <Col lg="6" className="mx-auto">
+              <Card className="p-4 mt-4">
+                <Row>
+                  <Col>
+                  <h2>SIGN UP</h2>
+                  </Col>
+                </Row>
 
-        <label htmlFor="lastName">Last name: </label>
-        <input 
-          type="text" 
-          name="lastName" 
-          value={this.state.newUser.lastName} 
-          onChange={(event)=>this.changeHandlerSignUp(event.target)}
-        />
+                <Form onSubmit={this.submitSignUp}>
+                  <Row>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label htmlFor="name"></Form.Label>
+                        <Form.Control
+                          type="text" 
+                          name="name" 
+                          value={this.state.newUser.name} 
+                          onChange={(event)=>this.changeHandlerSignUp(event.target)}
+                          placeholder="Name">
+                        </Form.Control>
+                      </Form.Group>
 
-        <label htmlFor="email">Email: </label>
-        <input 
-          type="text" 
-          name="email" 
-          value={this.state.newUser.email} 
-          onChange={(event)=>this.changeHandlerSignUp(event.target)}
-        />
+                      <Form.Group>
+                        <Form.Label htmlFor="lastName"></Form.Label>
+                        <Form.Control
+                          type="text" 
+                          name="lastName" 
+                          value={this.state.newUser.lastName} 
+                          onChange={(event)=>this.changeHandlerSignUp(event.target)}
+                          placeholder="Last Name">
+                        </Form.Control>
+                      </Form.Group>
 
-        <label htmlFor="password">Password: </label>
-        <input 
-          type="password" 
-          name="password" 
-          value={this.state.newUser.password} 
-          onChange={(event)=>this.changeHandlerSignUp(event.target)}
-        />
+                      <Form.Group>
+                        <Form.Label htmlFor="email"></Form.Label>
+                          <Form.Control
+                            type="email" 
+                            name="email" 
+                            value={this.state.newUser.email} 
+                            onChange={(event)=>this.changeHandlerSignUp(event.target)}
+                            placeholder="Email">
+                          </Form.Control>
+                      </Form.Group>
 
-        <button type="submit">Sign Up</button>
+                      <Form.Group>
+                        <Form.Label htmlFor="password"></Form.Label>
+                        <Form.Control
+                          type="password" 
+                          name="password" 
+                          value={this.state.newUser.password} 
+                          onChange={(event)=>this.changeHandlerSignUp(event.target)}
+                          placeholder="Password">
+                        </Form.Control>
+                      </Form.Group>
 
-      </form>
 
-      <p>{this.state.errorMessageSignUp}</p>
 
-    </div>
+                    </Col>
+
+
+
+                  </Row>
+
+                  <Card.Text className="text-danger">{this.state.errorMessageSignUp}</Card.Text>
+                  <Button variant="dark" className="mt-3" type="submit">SIGN UP</Button>
+
+                </Form>
+
+              </Card>
+
+
+
+            </Col>
+
+
+          </Row>
+
+        </Container>
+
+
+
+      </div>
   )
   }
  

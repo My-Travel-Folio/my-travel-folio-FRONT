@@ -1,7 +1,9 @@
 import React from 'react'
 
+
 //DEPENDENCIAS
 import UserService from '../services/UserService';
+import {Container, Col, Row, Form, Button, Card} from 'react-bootstrap'
 
 class LogIn extends React.Component {
 
@@ -32,32 +34,59 @@ class LogIn extends React.Component {
 
   render(){
     return(
-      <div>
-        <h2>Log In</h2>
-        <form onSubmit={this.submitLogIn}>
+      <div className="login">
 
-          <label htmlFor="email">Email: </label>
-          <input 
-            type="text" 
-            name="email" 
-            value={this.state.loggingUser.email} 
-            onChange={(event)=>this.changeHandlerLogIn(event.target)}
-          />
+        <Container>
+          <Row>
+            <Col lg="6" className="mx-auto mt-4">
+              <Card className="p-4">
+                <Row>
+                  <Col >
+                    <h2>LOG IN</h2>
+                  </Col>
+                </Row>
+                <Form onSubmit={this.submitLogIn}>
+                  <Row>
+                    <Col>
 
-          <label htmlFor="password">Password: </label>
-          <input 
-            type="password" 
-            name="password" 
-            value={this.state.loggingUser.password} 
-            onChange={(event)=>this.changeHandlerLogIn(event.target)}
-          />
+                      <Form.Group>
+                        <Form.Label htmlFor="email"></Form.Label>
+                        <Form.Control
+                          type="email" 
+                          name="email" 
+                          value={this.state.loggingUser.email} 
+                          onChange={(event)=>this.changeHandlerLogIn(event.target)}
+                          placeholder="Introduce your email">
+                        </Form.Control>
+                      </Form.Group>
 
-          <button type="submit">Log In</button>
+                      <Form.Group>
+                        <Form.Label htmlFor="password"></Form.Label>
+                        <Form.Control 
+                          type="password" 
+                          name="password" 
+                          value={this.state.loggingUser.password} 
+                          onChange={(event)=>this.changeHandlerLogIn(event.target)}
+                          placeholder="Introduce your password">
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Card.Text className="text-danger">{this.state.errorMessageLogin}</Card.Text>
+                  <Button variant="dark" className="mt-3" type="submit">LOG IN</Button>
+                </Form>
 
-        </form>
+              </Card>
 
-        <p>{this.state.errorMessageLogin}</p>
+            </Col>
+
+          </Row>
+
+        </Container>
+        
+
       </div>
+
     )
 
   }
