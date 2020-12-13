@@ -39,7 +39,7 @@ class MyTravels extends React.Component {
   //      LIFECYLE METHODS
   componentDidMount() {
     this.getSingleTravelData()
-    this.getFilesData()
+    // this.getFilesData()
   }
 
   // EMPTY STATE

@@ -7,6 +7,7 @@ class SignUp extends React.Component {
   // const {submitSignUp, newUser, changeHandlerSignUp} = props
   state={
     newUser: { name: '', lastName: '', email:'', password: '' },
+    errorMessageSignUp: ''
   }
 
   service = new UserService();
@@ -17,6 +18,7 @@ class SignUp extends React.Component {
 		event.preventDefault();
     	this.service.signup(this.state.newUser.name, this.state.newUser.lastName, this.state.newUser.email, this.state.newUser.password)
 		.then((result) => {
+      this.setState({errorMessageSignUp: result.message})
 			this.props.checkIfLoggedIn();
 		})
 		.catch((err) => {
@@ -69,6 +71,9 @@ class SignUp extends React.Component {
         <button type="submit">Sign Up</button>
 
       </form>
+
+      <p>{this.state.errorMessageSignUp}</p>
+
     </div>
   )
   }

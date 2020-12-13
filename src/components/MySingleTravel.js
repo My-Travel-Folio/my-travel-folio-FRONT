@@ -37,11 +37,11 @@ class MySingleTravel extends React.Component {
     //          HANDLE FUNCTIONS
 
     //HOTEL FILTER
-    handleSearchTravelFilesHotel = () => {
-        // const hotelReservation = 'hotelReservation'
-        console.log('Hola')
-        this.getSearchTravelFiles()
-    }
+    // handleSearchTravelFilesHotel = () => {
+    //     // const hotelReservation = 'hotelReservation'
+    //     console.log('Hola')
+    //     this.getSearchTravelFiles()
+    // }
 
     //SHOW FILE FORM
     handleNewFileForm = ()=>{
@@ -57,12 +57,12 @@ class MySingleTravel extends React.Component {
     }
 
 
-    sortByDate () {
-        let newTravelFiles = [...this.state.mySingleTravelFiles].sort((a, b) => a.date > b.date)
-        this.setState({
-            mySingleTravelFiles: newTravelFiles
-        })
-    }
+    // sortByDate () {
+    //     let newTravelFiles = [...this.state.mySingleTravelFiles].sort((a, b) => a.date > b.date)
+    //     this.setState({
+    //         mySingleTravelFiles: newTravelFiles
+    //     })
+    // }
 
     // LIFECYCLE METHODS
 
@@ -90,7 +90,7 @@ class MySingleTravel extends React.Component {
             } else {
                 return (
                     <div>
-                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button>
+                        {/* <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button> */}
                         <button onClick={this.handleNewFileForm}>Add file</button>
                             <p>{this.props.singleTravel.travelName}</p>
                             <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>

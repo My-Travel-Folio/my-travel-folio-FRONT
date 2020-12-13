@@ -6,7 +6,8 @@ import UserService from '../services/UserService';
 class LogIn extends React.Component {
 
   state={
-    loggingUser: { email: '', password: '' }
+    loggingUser: { email: '', password: '' },
+    errorMessageLogin: ''
   }
   
   service = new UserService();
@@ -16,8 +17,9 @@ class LogIn extends React.Component {
 		event.preventDefault();
 		this.service
 			.login(this.state.loggingUser.email, this.state.loggingUser.password)
-			.then(() => {
-				this.props.checkIfLoggedIn()
+			.then((result) => {   
+        this.setState({errorMessageLogin: result.message})     
+        this.props.checkIfLoggedIn()
 			})
 			.catch((err) => {
 				console.log('Sorry something went wrong on submit.', err);
@@ -53,6 +55,8 @@ class LogIn extends React.Component {
           <button type="submit">Log In</button>
 
         </form>
+
+        <p>{this.state.errorMessageLogin}</p>
       </div>
     )
 
