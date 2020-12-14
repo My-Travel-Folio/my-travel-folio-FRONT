@@ -11,7 +11,15 @@ const NavBar = (props)=>{
         <div>
 
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-              <Navbar.Brand href="#home">My Travel Folio</Navbar.Brand>
+              <Navbar.Brand href="#home">
+              <img
+                src="../wallet-logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt="Travel folio logo"
+              />
+                My Travel Folio</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>
                   <Nav className="ml-auto">
@@ -26,9 +34,6 @@ const NavBar = (props)=>{
                     </Nav.Item>
                   </Nav>
                 </Navbar.Collapse>
-
-                
-
             </Navbar>
         </div>
       )

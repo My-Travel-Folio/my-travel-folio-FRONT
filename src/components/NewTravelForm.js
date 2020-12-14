@@ -11,10 +11,12 @@ class NewTravelForm extends React.Component {
     newTravel: {
       userID: this.props.isLogged._id,
       travelName: '',
-      startDate: new Date() , 
-      endDate: new Date()
-  },
-}
+      startDate: new Date(), 
+      endDate: new Date(),
+      startDateFixed: '',
+      endDateFixed: ''
+    },
+  }
 
   //Conexión Travel Service
   service = new TravelService();

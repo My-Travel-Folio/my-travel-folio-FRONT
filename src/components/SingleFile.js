@@ -30,7 +30,7 @@ class SingleFile extends React.Component {
                         {this.props.singleFile.comment && <p>Comment: {this.props.singleFile.comment}</p>}
                         <p>Category: {this.props.singleFile.category}</p>
                         <button onClick={this.handleViewFile}>View File</button>
-                        <a href={this.props.singleFile.imageUrl} target="_blank" rel="noopener noreferrer" download>Download</a>
+                        {/* <a href={this.props.singleFile.imageUrl} target="_blank" rel="noopener noreferrer" download>Download</a> */}
                         {/* <a href={this.props.singleFile.imageUrl} download={`${this.props.singleFile.fileName}.pdf`}><button>Download File</button></a> */}
                     </div>     
                 </div>

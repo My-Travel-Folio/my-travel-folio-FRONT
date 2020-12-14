@@ -39,8 +39,10 @@ class MyTravels extends React.Component {
   }
 
   // EMPTY STATE
-  clearSingleTravel = () => {
-    this.setState({singleTravel: ''})
+  clearSingleTravel = async () => {
+    await this.setState({mySingleTravelFiles: []})
+    this.setState({singleTravel: {}})
+    
   }
 
   //          RENDER

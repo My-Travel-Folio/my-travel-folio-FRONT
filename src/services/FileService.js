@@ -27,16 +27,6 @@ class FileService {
       .then(response => response.data)
     }
 
-    // getSearchTravelFiles = (category) => {
-    //   return this.service.get(`/files-search-category`, {category})
-    //   .then(response => response.data)
-    // }
-
-    getSearchTravelFiles = (hotelReservation) => {
-      return this.service.get(`/files-search-hotel`, {hotelReservation})
-      .then(response => response.data)
-    }
-
     getFile = (fileID) => {
       return this.service.get(`/get-file/${fileID}`, {fileID})
       .then((response)=>{

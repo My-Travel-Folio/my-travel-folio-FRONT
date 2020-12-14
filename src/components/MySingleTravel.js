@@ -11,7 +11,8 @@ class MySingleTravel extends React.Component {
         showSingleFile: false,
         showNewFileForm: false, 
         singleFile: '',
-        mySingleTravelFiles: this.props.mySingleTravelFiles
+        mySingleTravelFiles: this.props.mySingleTravelFiles,
+        filteredFiles: this.props.mySingleTravelFiles
     }
 
     service = new FileService();
@@ -26,22 +27,23 @@ class MySingleTravel extends React.Component {
         })
     }
 
-    // FILTER FILES BY CATEGORY
-    getSearchTravelFiles = ()=>{
-        this.service.getSearchTravelFiles()
+    // GET SINGLE TRAVEL FILES
+    getFilesData = (travelID)=>{
+        this.service.getTravelFiles(travelID)
         .then((response)=>{
             this.setState({mySingleTravelFiles: response})
         })
-    }
+      }
 
     //          HANDLE FUNCTIONS
 
     //HOTEL FILTER
-    // handleSearchTravelFilesHotel = () => {
-    //     // const hotelReservation = 'hotelReservation'
-    //     console.log('Hola')
-    //     this.getSearchTravelFiles()
-    // }
+    handleSearchTravelFilesHotel = () => {
+        const hotelReservation = this.state.mySingleTravelFiles.filter((file) => (
+            file.category === 'Hotel Reservation'
+        ))
+        this.setState({filteredFiles: hotelReservation})
+    }
 
     //SHOW FILE FORM
     handleNewFileForm = ()=>{
@@ -54,6 +56,11 @@ class MySingleTravel extends React.Component {
     handleSingleFile = async (fileID)=>{
         await this.getSingleFile(fileID)
         this.setState( {showSingleFile: !this.state.showSingleFile})
+    }
+
+    handleBackToTravel = async (travelID)=> {
+        await this.getFilesData(travelID)
+        this.setState({showNewFileForm: !this.state.showNewFileForm})
     }
 
 
@@ -90,15 +97,15 @@ class MySingleTravel extends React.Component {
             } else {
                 return (
                     <div>
-                        {/* <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button> */}
+                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button>
                         <button onClick={this.handleNewFileForm}>Add file</button>
                             <p>{this.props.singleTravel.travelName}</p>
                             <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
 
-                        {this.props.mySingleTravelFiles.map((singleFile, index)=>(
+                        {this.state.filteredFiles.map((singleFile, index)=>(
                             <div key={index}>
                                 <button onClick={()=>this.handleSingleFile(singleFile._id)}>
-                                    <p>Day: {singleFile.date}</p>
+                                    <p>Day: {singleFile.fixedDate}</p>
                                     <p>{singleFile.fileName}</p>
                                 </button>
                             </div>     
@@ -110,7 +117,7 @@ class MySingleTravel extends React.Component {
             return(
                 <div>
                     <NewFileForm singleTravelID={this.props.singleTravel._id}/>
-                    <button onClick={this.handleNewFileForm}>Back to {this.props.singleTravel.travelName}</button>
+                    <button onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</button>
                 </div>
             )
         }      
