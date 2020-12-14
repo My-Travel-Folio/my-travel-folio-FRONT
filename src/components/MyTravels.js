@@ -9,8 +9,8 @@ class MyTravels extends React.Component {
 
   state={
     // showSingleTravel: false,
-    singleTravel: '',
-    mySingleTravelFiles: ''
+    singleTravel: {},
+    mySingleTravelFiles: []
   }
 
   //Conexión Travel Service
@@ -20,26 +20,22 @@ class MyTravels extends React.Component {
             // GET DATA FROM DB
             
   // SINGLE TRAVEL INFO
-  getSingleTravelData = (_id)=>{
+  getSingleTravelData = (_id, responseTravelFiles)=>{
     this.service.getTravel(_id)
-    .then((response)=>{
-        this.setState({singleTravel: response})
+    .then((responseSingleTravel)=>{
+        this.setState({singleTravel: responseSingleTravel, mySingleTravelFiles: responseTravelFiles})
+    })
+    .catch((err)=>{
+      console.log(err)
     })
   }
 
   // SINGLE TRAVEL FILES INFO
   getFilesData = (travelID)=>{
     this.service.getTravelFiles(travelID)
-    .then((response)=>{
-        this.setState({mySingleTravelFiles: response})
+    .then((responseTravelFiles)=>{
+      this.getSingleTravelData(travelID, responseTravelFiles)
     })
-  }
-
-
-  //      LIFECYLE METHODS
-  componentDidMount() {
-    this.getSingleTravelData()
-    // this.getFilesData()
   }
 
   // EMPTY STATE
@@ -47,25 +43,18 @@ class MyTravels extends React.Component {
     this.setState({singleTravel: ''})
   }
 
-  //      HANDLE FUNCTIONS
-
-  handleSingleTravel = (travelID)=>{
-    this.getSingleTravelData(travelID)
-    this.getFilesData(travelID)
-  }
-
   //          RENDER
 
   render() {
 
-    if(!this.state.singleTravel) {
+    if(!this.state.singleTravel._id) {
       return (
         <div>
           <h2>My Travels</h2>
           {this.props.allTravels.map((travel, index)=>(
             <button
               key={index}
-              onClick={()=>this.handleSingleTravel(travel._id)}>
+              onClick={()=>this.getFilesData(travel._id)}>
               <div>
                 <p>{travel.travelName}</p>
                 <p>{travel.startDate}</p>

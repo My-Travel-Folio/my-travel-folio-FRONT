@@ -51,8 +51,8 @@ class MySingleTravel extends React.Component {
     }
     
     // SHOW SINGLE FILE
-    handleSingleFile = (fileID)=>{
-        this.getSingleFile(fileID)
+    handleSingleFile = async (fileID)=>{
+        await this.getSingleFile(fileID)
         this.setState( {showSingleFile: !this.state.showSingleFile})
     }
 
