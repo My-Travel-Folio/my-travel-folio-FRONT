@@ -15,7 +15,7 @@ class NewFileForm extends React.Component {
       travelID: this.props.singleTravelID,
       fileName: '',
       imageUrl: '',
-      category: 'other',
+      category: 'Other',
       comment: '',
       date: new Date(),
       fixedDate: ''
@@ -49,7 +49,6 @@ class NewFileForm extends React.Component {
     
     this.service.newFile(this.state.newFile)
       .then(res => {
-        // this.changeDate()
           console.log('added: ', res);
       })
       .catch(err => {
@@ -57,19 +56,7 @@ class NewFileForm extends React.Component {
       });
   }
 
-  // changeDate = () => {
-  //   const newDate = {...this.state.newFile.date}.toString()
-  //   const year = newDate.slice(0,4)
-  //   const month = newDate.slice(5,7)
-  //   const day = newDate.slice(8, 10)
-
-  //   const newDateFixed = `${day}/${month}/${year}`
-
-  //   this.setState({newFile: { ...this.state.newFile, date: newDateFixed}})
-  // }
-
   onChangeDate = (date) =>{
-    // const newDate = date.toString()
     const year = date.getFullYear()
     const month = date.getMonth() + 1
     const day = date.getDate()
@@ -86,6 +73,7 @@ class NewFileForm extends React.Component {
     const day = date.getDate()
 
     const newDateFixed = `${day}/${month}/${year}`
+    
     return this.setState({newFile: { ...this.state.newFile, fixedDate: newDateFixed}})
   }
 
@@ -119,8 +107,8 @@ class NewFileForm extends React.Component {
           <select name="category" onChange={(e)=>this.handleChange(e)}>
             <option>Other</option>
             <option>Hotel Reservation</option>
-            <option>Transport ticket</option>
-            <option>Experience ticket</option>
+            <option>Transport Ticket</option>
+            <option>Experience Ticket</option>
           </select>
 
           <label htmlFor="comment">Comment: </label>

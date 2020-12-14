@@ -31,7 +31,8 @@ class MySingleTravel extends React.Component {
     getFilesData = (travelID)=>{
         this.service.getTravelFiles(travelID)
         .then((response)=>{
-            this.setState({mySingleTravelFiles: response})
+            this.setState({mySingleTravelFiles: response, filteredFiles: response})
+            
         })
       }
 
@@ -43,6 +44,30 @@ class MySingleTravel extends React.Component {
             file.category === 'Hotel Reservation'
         ))
         this.setState({filteredFiles: hotelReservation})
+    }
+
+    //EXPERIENCE FILTER
+    handleSearchTravelFilesExperience = () => {
+        const experience = this.state.mySingleTravelFiles.filter((file) => (
+            file.category === 'Experience Ticket'
+        ))
+        this.setState({filteredFiles: experience})
+    }
+
+    //TRANSPORT FILTER
+    handleSearchTravelFilesTransport = () => {
+        const transport = this.state.mySingleTravelFiles.filter((file) => (
+            file.category === 'Transport Ticket'
+        ))
+        this.setState({filteredFiles: transport})
+    }
+
+    //OTHER FILTER
+    handleSearchTravelFilesOther = () => {
+        const other = this.state.mySingleTravelFiles.filter((file) => (
+            file.category === 'Other'
+        ))
+        this.setState({filteredFiles: other})
     }
 
     //SHOW FILE FORM
@@ -62,7 +87,6 @@ class MySingleTravel extends React.Component {
         await this.getFilesData(travelID)
         this.setState({showNewFileForm: !this.state.showNewFileForm})
     }
-
 
     // sortByDate () {
     //     let newTravelFiles = [...this.state.mySingleTravelFiles].sort((a, b) => a.date > b.date)
@@ -97,10 +121,13 @@ class MySingleTravel extends React.Component {
             } else {
                 return (
                     <div>
-                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel</button>
+                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</button>
+                        <button onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</button>
+                        <button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</button>
+                        <button onClick={this.handleSearchTravelFilesOther}>Other</button>
                         <button onClick={this.handleNewFileForm}>Add file</button>
                             <p>{this.props.singleTravel.travelName}</p>
-                            <p>{this.props.singleTravel.startDate} - {this.props.singleTravel.endDate}</p>
+                            <p>{this.props.singleTravel.startDateFixed} - {this.props.singleTravel.endDateFixed}</p>
 
                         {this.state.filteredFiles.map((singleFile, index)=>(
                             <div key={index}>

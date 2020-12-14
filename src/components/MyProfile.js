@@ -39,10 +39,9 @@ class MyProfile extends React.Component {
 
     //Función Botón Add New Travel
 
-    handleNewTravelForm = ()=>{
-        this.setState(
-            {showNewTravelForm: !this.state.showNewTravelForm}
-        )
+    handleNewTravelForm = async ()=>{
+        await this.getTravelData(this.props.isLogged._id)
+        this.setState({showNewTravelForm: !this.state.showNewTravelForm})
     }
 
     //Función Botón All Travels

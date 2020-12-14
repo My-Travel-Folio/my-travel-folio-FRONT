@@ -59,7 +59,7 @@ class MyTravels extends React.Component {
               onClick={()=>this.getFilesData(travel._id)}>
               <div>
                 <p>{travel.travelName}</p>
-                <p>{travel.startDate}</p>
+                <p>{travel.startDateFixed}</p>
               </div>     
             </button>
           ))}
