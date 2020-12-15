@@ -3,6 +3,7 @@ import React from 'react'
 import ViewFile from './ViewFile'
 
 import FileService from '../services/FileService';
+import {Container, Row, Col, Card, Button} from 'react-bootstrap'
 
 class SingleFile extends React.Component {
 
@@ -44,17 +45,32 @@ class SingleFile extends React.Component {
         if(!this.state.showViewFile && !this.state.deleteMessage) {
             return(
                 <div>
-                    <h2>My Single File</h2>
-                    <div>
+                    <Container>
+                        <Row>
+                            <Col>
+                            <Card style={{ width: '18rem' }} className="mx-auto">
+                                <Card.Body>
+                                    <Card.Title>{this.props.singleFile.fileName}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.fixedDate}</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.category}</Card.Subtitle>
+                                        <Button className="mr-1" size="sm" onClick={this.handleViewFile}>View File</Button>
+                                        <Button variant="danger" className="ml-1"size="sm" onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</Button>
+                                </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+ 
+                    </Container>
+                    
+                    {/* <div>
                         <p>Day: {this.props.singleFile.fixedDate}</p>
-                        <p>Name: {this.props.singleFile.fileName}</p>
+                        
                         {this.props.singleFile.comment && <p>Comment: {this.props.singleFile.comment}</p>}
                         <p>Category: {this.props.singleFile.category}</p>
                         <button onClick={this.handleViewFile}>View File</button>
                         <button onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</button>
-                        {/* <a href={this.props.singleFile.imageUrl} target="_blank" rel="noopener noreferrer" download>Download</a> */}
-                        {/* <a href={this.props.singleFile.imageUrl} download={`${this.props.singleFile.fileName}.pdf`}><button>Download File</button></a> */}
-                    </div>     
+
+                    </div>      */}
                 </div>
             )
         } else if (this.state.showViewFile && !this.state.deleteMessage){

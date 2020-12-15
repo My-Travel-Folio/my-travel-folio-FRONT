@@ -78,7 +78,7 @@ class MyProfile extends React.Component {
 
                             <Row className="mx-auto">
                                 <Col>
-                                    <Card className="mt-4 p-4 text-center" >
+                                    <Card className="mt-4 mb-5 p-4 text-center" >
                                         <Card.Body>
         
                                             {this.state.showNewTravelForm 
@@ -89,11 +89,6 @@ class MyProfile extends React.Component {
                                     </Card>
                                 </Col>
                             </Row>
-
-
-                            
-                            
-
 
                         </Col>
                     </Row>

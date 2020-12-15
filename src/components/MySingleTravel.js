@@ -5,6 +5,7 @@ import SingleFile from './SingleFile'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 import TravelService from '../services/TravelService'
+import {Container, Row, Col, ButtonGroup, Button, ListGroup} from 'react-bootstrap'
 
 
 class MySingleTravel extends React.Component {
@@ -123,30 +124,59 @@ class MySingleTravel extends React.Component {
             if(this.state.showSingleFile) {
                 return (
                     <div>
-                        <button onClick={this.handleSingleFile}>Back to {this.props.singleTravel.travelName}</button>
+                        <Button onClick={this.handleSingleFile}>ALL FILES</Button>
                         <SingleFile singleFile={this.state.singleFile} singleTravelID={this.props.singleTravel._id} />
                     </div>
                 )
             } else if (!this.state.showSingleFile && !this.state.deleteMessage){
                 return (
                     <div>
-                        <button onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</button>
-                        <button onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</button>
-                        <button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</button>
-                        <button onClick={this.handleSearchTravelFilesOther}>Other</button>
-                        <button onClick={this.handleNewFileForm}>Add file</button>
-                        <button onClick={()=>this.handleDeleteTravel(this.props.singleTravel._id)}>Delete Travel</button>
-                            <p>{this.props.singleTravel.travelName}</p>
-                            <p>{this.props.singleTravel.startDateFixed} - {this.props.singleTravel.endDateFixed}</p>
+                        <Container>
 
-                        {this.state.filteredFiles.sort((a, b)=> new Date(a.date) - new Date(b.date)).map((singleFile, index)=>(
-                            <div key={index}>
-                                <button onClick={()=>this.handleSingleFile(singleFile._id)}>
-                                    <p>Day: {singleFile.fixedDate}</p>
-                                    <p>{singleFile.fileName}</p>
-                                </button>
-                            </div>     
-                        ))}
+                            <Row>
+                                <Col className="mt-2 mb-2">
+                                    <Button variant="outline-danger" onClick={()=>this.handleDeleteTravel(this.props.singleTravel._id)}>Delete Travel</Button>
+                                    <Button onClick={this.handleNewFileForm}>Add file</Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="mt-2 mb-2">
+                                    <p>CATEGORIES FILTER:</p>
+                                    <ButtonGroup  className="mb-2">
+                                        <Button variant="outline-danger" onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Button>
+                                        <Button variant="outline-info" onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Button>
+                                        <Button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Button>
+                                        <Button onClick={this.handleSearchTravelFilesOther}>Other</Button>
+                                    </ButtonGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col lg="6" className="mx-auto">
+                                    <ListGroup className="">
+                                        <ListGroup.Item>
+                                            <h4>MY FILES</h4>
+                                        </ListGroup.Item>
+                                            {this.state.filteredFiles.sort((a, b)=> new Date(a.date) - new Date(b.date)).map((singleFile, index)=>(
+                                            <ListGroup.Item 
+                                                key={index}
+                                                onClick={()=>this.handleSingleFile(singleFile._id)}
+                                                action
+                                                >
+                                                <p>{singleFile.fileName}</p>
+                                                <p>{singleFile.fixedDate}</p>
+                                            </ListGroup.Item>    
+                                        ))}
+                                        </ListGroup>
+                                </Col>
+                            </Row>
+                            
+
+
+
+
+
+                        </Container>
+
                     </div>
                 )
             } else if (this.state.deleteMessage && !this.state.showSingleFile){

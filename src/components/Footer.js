@@ -8,8 +8,8 @@ const Footer = ()=>{
 
     return(
         <div>
-        
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="bottom">
+      
+          <Navbar className="mt-5" collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="bottom">
                   <Nav className="mx-auto">
                     <Nav.Item className="text-light">
                       This Is Us

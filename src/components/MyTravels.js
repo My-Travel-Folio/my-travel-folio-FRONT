@@ -4,16 +4,15 @@ import React from 'react'
 import TravelService from '../services/TravelService'
 import FileService from '../services/FileService';
 import MySingleTravel from './MySingleTravel'
+import {Container, Row, Col, ListGroup, Button} from 'react-bootstrap'
 
 class MyTravels extends React.Component {
 
   state={
-      // showSingleTravel: false,
       singleTravel: {},
       mySingleTravelFiles: [],
       allTravels: this.props.allTravels
     }
-
 
     //Conexión Travel & File Service
     travelService = new TravelService();
@@ -54,25 +53,40 @@ class MyTravels extends React.Component {
 
     if(!this.state.singleTravel._id) {
       return (
-        <div>
-          <h2>My Travels</h2>
-          {this.props.allTravels.sort((a, b)=> new Date(a.startDate) - new Date(b.startDate)).map((travel, index)=>(
-            <button
-              key={index}
-              onClick={()=>this.getFilesData(travel._id)}>
-              <div>
-                <p>{travel.travelName}</p>
-                <p>{travel.startDateFixed}</p>
-              </div>     
-            </button>
-          ))}
-        </div>
+
+          <div>
+            <Container>
+              <Row >
+                <Col lg="6" className="mx-auto">
+                  <h3>MY TRAVELS</h3>
+                  <ListGroup className="my-travels-list">
+                    
+                    
+                    {this.props.allTravels.sort((a, b)=> new Date(a.startDate) - new Date(b.startDate)).map((travel, index)=>(
+                    <ListGroup.Item
+                      key={index}
+                      onClick={()=>this.getFilesData(travel._id)}
+                      action
+                      >
+                        <p>{travel.travelName}</p>
+                        <p>{travel.startDateFixed}</p>
+                    </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </Col>
+              </Row>
+            </Container>
+
+
+          </div>
+
       )
     } else {
       return(
-        <div>
-          <h2>My Single Travel</h2>
-          <button onClick={this.clearSingleTravel}>Back to my travels</button>
+        <div> 
+          <Button className="mb-3" onClick={this.clearSingleTravel}>Back to my travels</Button>
+          <h2>{this.state.singleTravel.travelName}</h2>
+          <h5>{this.state.singleTravel.startDateFixed} - {this.state.singleTravel.endDateFixed}</h5>
           <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles} getFilesData={this.getFilesData}/>
         </div>
         
