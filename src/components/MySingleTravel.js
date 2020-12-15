@@ -2,7 +2,9 @@ import React from 'react'
 import NewFileForm from './NewFileForm'
 import SingleFile from './SingleFile'
 
+//DEPENDENCIAS
 import FileService from '../services/FileService';
+import TravelService from '../services/TravelService'
 
 
 class MySingleTravel extends React.Component {
@@ -12,16 +14,19 @@ class MySingleTravel extends React.Component {
         showNewFileForm: false, 
         singleFile: '',
         mySingleTravelFiles: this.props.mySingleTravelFiles,
-        filteredFiles: this.props.mySingleTravelFiles
+        filteredFiles: this.props.mySingleTravelFiles,
+        deleteMessage: false
     }
 
-    service = new FileService();
+    //Conexión Travel & File Service
+    travelService = new TravelService();
+    fileService = new FileService();
 
     //          GET DATA FROM DB
             
     // SINGLE FILE INFO
     getSingleFile = (_id)=>{
-        this.service.getFile(_id)
+        this.fileService.getFile(_id)
         .then((response)=>{
             this.setState({singleFile: response})
         })
@@ -29,12 +34,22 @@ class MySingleTravel extends React.Component {
 
     // GET SINGLE TRAVEL FILES
     getFilesData = (travelID)=>{
-        this.service.getTravelFiles(travelID)
+        this.fileService.getTravelFiles(travelID)
         .then((response)=>{
             this.setState({mySingleTravelFiles: response, filteredFiles: response})
             
         })
       }
+
+    // DELETE TRAVEL
+
+    deleteTravel = (travelID) =>{
+        this.travelService.deleteTravel(travelID)
+        .then(()=>{
+            this.setState({deleteMessage: true})
+            console.log("Travel removed")
+        })
+    }
 
     //          HANDLE FUNCTIONS
 
@@ -88,24 +103,16 @@ class MySingleTravel extends React.Component {
         this.setState({showNewFileForm: !this.state.showNewFileForm})
     }
 
-    // sortByDate () {
-    //     let newTravelFiles = [...this.state.mySingleTravelFiles].sort((a, b) => a.date > b.date)
-    //     this.setState({
-    //         mySingleTravelFiles: newTravelFiles
-    //     })
-    // }
+    handleDeleteTravel = (travelID)=>{
+        console.log(travelID)
+        this.deleteTravel(travelID)
+    }
 
     // LIFECYCLE METHODS
 
     componentDidMount() {
         this.getSingleFile(this.state.singleFile._id)
     }
-
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.mySingleTravelFiles !== prevProps.mySingleTravelFiles) {
-    //         this.props.getFilesData(this.props.singleTravel._id)
-    //     }
-    // }
 
     render() {
                         // ESTO CÓMO PUEDE SER QUE ESTÉ FUNCIONANDO AL REVÉS???
@@ -118,7 +125,7 @@ class MySingleTravel extends React.Component {
                         <SingleFile singleFile={this.state.singleFile} singleTravelID={this.props.singleTravel._id} />
                     </div>
                 )
-            } else {
+            } else if (!this.state.showSingleFile && !this.state.deleteMessage){
                 return (
                     <div>
                         <button onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</button>
@@ -126,10 +133,11 @@ class MySingleTravel extends React.Component {
                         <button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</button>
                         <button onClick={this.handleSearchTravelFilesOther}>Other</button>
                         <button onClick={this.handleNewFileForm}>Add file</button>
+                        <button onClick={()=>this.handleDeleteTravel(this.props.singleTravel._id)}>Delete Travel</button>
                             <p>{this.props.singleTravel.travelName}</p>
                             <p>{this.props.singleTravel.startDateFixed} - {this.props.singleTravel.endDateFixed}</p>
 
-                        {this.state.filteredFiles.map((singleFile, index)=>(
+                        {this.state.filteredFiles.sort((a, b)=> new Date(a.date) - new Date(b.date)).map((singleFile, index)=>(
                             <div key={index}>
                                 <button onClick={()=>this.handleSingleFile(singleFile._id)}>
                                     <p>Day: {singleFile.fixedDate}</p>
@@ -139,15 +147,21 @@ class MySingleTravel extends React.Component {
                         ))}
                     </div>
                 )
-            }
-        } else {
+            } else if (this.state.deleteMessage && !this.state.showSingleFile){
+                return(
+                    <div>
+                        <p>Your travel has beem removed succesfully</p>
+                    </div>
+                )
+            } 
+        } else if(this.state.showNewFileForm) {
             return(
                 <div>
                     <NewFileForm singleTravelID={this.props.singleTravel._id}/>
                     <button onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</button>
                 </div>
             )
-        }      
+        }     
     }
 }
 

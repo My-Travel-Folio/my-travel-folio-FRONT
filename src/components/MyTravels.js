@@ -8,20 +8,22 @@ import MySingleTravel from './MySingleTravel'
 class MyTravels extends React.Component {
 
   state={
-    // showSingleTravel: false,
-    singleTravel: {},
-    mySingleTravelFiles: []
-  }
+      // showSingleTravel: false,
+      singleTravel: {},
+      mySingleTravelFiles: [],
+      allTravels: this.props.allTravels
+    }
 
-  //Conexión Travel Service
-  service = new TravelService();
-  service = new FileService();
+
+    //Conexión Travel & File Service
+    travelService = new TravelService();
+    fileService = new FileService();
   
             // GET DATA FROM DB
             
   // SINGLE TRAVEL INFO
   getSingleTravelData = (_id, responseTravelFiles)=>{
-    this.service.getTravel(_id)
+    this.travelService.getTravel(_id)
     .then((responseSingleTravel)=>{
         this.setState({singleTravel: responseSingleTravel, mySingleTravelFiles: responseTravelFiles})
     })
@@ -32,7 +34,7 @@ class MyTravels extends React.Component {
 
   // SINGLE TRAVEL FILES INFO
   getFilesData = (travelID)=>{
-    this.service.getTravelFiles(travelID)
+    this.fileService.getTravelFiles(travelID)
     .then((responseTravelFiles)=>{
       this.getSingleTravelData(travelID, responseTravelFiles)
     })

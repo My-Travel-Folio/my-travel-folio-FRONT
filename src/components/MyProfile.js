@@ -18,12 +18,12 @@ class MyProfile extends React.Component {
     }
 
     //Conexión Travel Service
-    service = new TravelService();
+    travelService = new TravelService();
 
             // GET DATA FROM DB
 
     getTravelData = ()=>{
-        this.service.getAllTravels(this.props.isLogged._id)
+        this.travelService.getAllTravels(this.props.isLogged._id)
         .then((response)=>{
             this.setState({allTravels: response})
         })
@@ -83,7 +83,7 @@ class MyProfile extends React.Component {
         
                                             {this.state.showNewTravelForm 
                                             ? <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
-                                            : <MyTravels allTravels={this.state.allTravels} />}
+                                            : <MyTravels allTravels={this.state.allTravels} getTravelData={this.getTravelData} />}
 
                                         </Card.Body>
                                     </Card>

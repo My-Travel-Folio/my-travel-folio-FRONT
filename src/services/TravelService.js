@@ -35,6 +35,17 @@ class TravelService {
         return response.data
     })
   }
+
+  //POST: delete travel
+
+  deleteTravel = (travelID) => {
+    return this.service.post(`/delete-travel/${travelID}`, {travelID})
+    .then((response)=>{
+      return response.data
+    })
+  }
+
 }
+
 
 export default TravelService;
