@@ -54,6 +54,15 @@ class FileService {
           .catch(this.errorHandler);
     }
 
+    //POST: delete travel
+
+    deleteFile = (fileID) => {
+      return this.service.post(`/delete-file/${fileID}`, {fileID})
+      .then((response)=>{
+        return response.data
+      })
+    }
+
     
 }
 

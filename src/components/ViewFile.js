@@ -8,8 +8,8 @@ class ViewFile extends React.Component {
 
             <div>
                 <div >
-                    {/* <object data={this.props.imageUrl}  aria-label="fileView"></object> */}
-                    <embed src={this.props.imageUrl} width="50%" height="auto" />
+                    <object data={this.props.imageUrl}  aria-label="fileView"></object>
+                    {/* <embed src={this.props.imageUrl} width="50%" height="auto" /> */}
                     {/* <img src={this.props.imageUrl} alt="img"></img> */}
                 </div>     
             </div>

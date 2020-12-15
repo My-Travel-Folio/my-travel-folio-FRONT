@@ -40,9 +40,10 @@ class MyTravels extends React.Component {
     })
   }
 
-  // EMPTY STATE
+  // EMPTY STATE & GET TRAVEL DATA AGAIN
   clearSingleTravel = async () => {
     await this.setState({mySingleTravelFiles: []})
+    await this.props.getTravelData()
     this.setState({singleTravel: {}})
     
   }
@@ -55,7 +56,7 @@ class MyTravels extends React.Component {
       return (
         <div>
           <h2>My Travels</h2>
-          {this.props.allTravels.map((travel, index)=>(
+          {this.props.allTravels.sort((a, b)=> new Date(a.startDate) - new Date(b.startDate)).map((travel, index)=>(
             <button
               key={index}
               onClick={()=>this.getFilesData(travel._id)}>

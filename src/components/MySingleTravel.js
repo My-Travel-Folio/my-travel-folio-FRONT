@@ -94,7 +94,9 @@ class MySingleTravel extends React.Component {
     
     // SHOW SINGLE FILE
     handleSingleFile = async (fileID)=>{
+        const travelID = this.props.singleTravel._id
         await this.getSingleFile(fileID)
+        await this.getFilesData(travelID)
         this.setState( {showSingleFile: !this.state.showSingleFile})
     }
 
@@ -150,7 +152,7 @@ class MySingleTravel extends React.Component {
             } else if (this.state.deleteMessage && !this.state.showSingleFile){
                 return(
                     <div>
-                        <p>Your travel has beem removed succesfully</p>
+                        <p>Your travel has been removed successfully</p>
                     </div>
                 )
             } 
