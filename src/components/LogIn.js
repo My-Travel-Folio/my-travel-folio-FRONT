@@ -20,7 +20,7 @@ class LogIn extends React.Component {
 		this.service
 			.login(this.state.loggingUser.email, this.state.loggingUser.password)
 			.then((result) => {   
-        this.setState({errorMessageLogin: result.message})     
+        this.setState({errorMessageLogin: result.message})   
         this.props.checkIfLoggedIn()
 			})
 			.catch((err) => {

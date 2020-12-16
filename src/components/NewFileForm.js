@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 
 //DEPENDENCIAS
 import FileService from '../services/FileService';
+import {Container, Col, Row, Form, Button, Card} from 'react-bootstrap'
 
 // import DatePicker from "react-datepicker";
  
@@ -84,50 +85,89 @@ class NewFileForm extends React.Component {
 
   render(){
     return(
+
       <div>
-        <h2>Soy el formulario para subir un file</h2>
-        
-        <form onSubmit={e =>this.handleSubmit(e)}>
+        <Container>
+          <Row>
+            <Col lg="6" className="mx-auto mt-4">
+              <Card className="p-4 text-left">
 
-          <label htmlFor="fileName">File Name: </label>
-          <input
-            type="text" 
-            name="fileName"
-            onChange={(e)=>this.handleChange(e)}
-          />
+                <Form onSubmit={e =>this.handleSubmit(e)}>
+                  <Row>
+                    <Col>
 
-          <label htmlFor="imageUrl">File: </label>
-          <input 
-            type="file" 
-            name="imageUrl"
-            onChange={(e)=>this.handleFileUpload(e)}
-          />
+                      <Form.Group>
+                        <Form.Label htmlFor="fileName">File Name: </Form.Label>
+                        <Form.Control
+                        type="text" 
+                        name="fileName"
+                        onChange={(e)=>this.handleChange(e)}>
+                        </Form.Control>
+                      </Form.Group>
 
-          <label htmlFor="category">Category: </label>
-          <select name="category" onChange={(e)=>this.handleChange(e)}>
-            <option>Other</option>
-            <option>Hotel Reservation</option>
-            <option>Transport Ticket</option>
-            <option>Experience Ticket</option>
-          </select>
+                      <Row>
+                        <Col className="mr-4">
+                          <Form.Group >
+                            <Form.Label htmlFor="imageUrl">File: </Form.Label>
+                            <Form.File
+                              // custom
+                              name="imageUrl"
+                              onChange={(e)=>this.handleFileUpload(e)}/>
+                          </Form.Group>
+                        </Col>
+                      </Row>
 
-          <label htmlFor="comment">Comment: </label>
-          <input 
-            type="text" 
-            name="comment" 
-            onChange={(e)=>this.handleChange(e)}
-          />
+                      <Form.Group>
+                        <Form.Label htmlFor="category">Category: </Form.Label>
+                        <Form.Control
+                        as="select"
+                        name="category"
+                        onChange={(e)=>this.handleChange(e)}>
+                          <option>Other</option>
+                          <option>Hotel Reservation</option>
+                          <option>Transport Ticket</option>
+                          <option>Experience Ticket</option>                          
+                        </Form.Control>
+                      </Form.Group>
 
-          <DatePicker
-            selected={this.state.newFile.date}
-            onChange={this.onChangeDate}
-            dateFormat="dd/MM/yyyy"
-           />
+                      <Form.Group>
+                        <Form.Label htmlFor="comment">Comment: </Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          type="text" 
+                          name="comment" 
+                          onChange={(e)=>this.handleChange(e)}>
+                        </Form.Control>
+                      </Form.Group>
 
-          <button type="submit">Upload file</button>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label>Date: </Form.Label> 
+                          </Col>                                                  
+                        </Row>
+                        <DatePicker
+                        selected={this.state.newFile.date}
+                        onChange={this.onChangeDate}
+                        dateFormat="dd/MM/yyyy"
+                        />
+                      </Form.Group>
 
-        </form>
+                    </Col>
+                  </Row>
 
+                  <Row>
+                    <Col className="mx-auto text-center">
+                      <Button type="submit">Upload file</Button>
+                    </Col>
+                  </Row>
+                
+                </Form>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

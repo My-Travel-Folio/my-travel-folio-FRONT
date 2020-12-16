@@ -31,8 +31,10 @@ class MyTravels extends React.Component {
     })
   }
 
+  //AQUI ---------------------------
   // SINGLE TRAVEL FILES INFO
   getFilesData = (travelID)=>{
+    console.log(typeof(travelID))
     this.fileService.getTravelFiles(travelID)
     .then((responseTravelFiles)=>{
       this.getSingleTravelData(travelID, responseTravelFiles)
