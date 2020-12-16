@@ -51,6 +51,7 @@ class SignUp extends React.Component {
                       <Form.Group>
                         <Form.Label htmlFor="name"></Form.Label>
                         <Form.Control
+                          required
                           type="text" 
                           name="name" 
                           value={this.state.newUser.name} 
@@ -62,6 +63,7 @@ class SignUp extends React.Component {
                       <Form.Group>
                         <Form.Label htmlFor="lastName"></Form.Label>
                         <Form.Control
+                          required
                           type="text" 
                           name="lastName" 
                           value={this.state.newUser.lastName} 
@@ -73,6 +75,7 @@ class SignUp extends React.Component {
                       <Form.Group>
                         <Form.Label htmlFor="email"></Form.Label>
                           <Form.Control
+                            required
                             type="email" 
                             name="email" 
                             value={this.state.newUser.email} 
@@ -84,6 +87,7 @@ class SignUp extends React.Component {
                       <Form.Group>
                         <Form.Label htmlFor="password"></Form.Label>
                         <Form.Control
+                          required
                           type="password" 
                           name="password" 
                           value={this.state.newUser.password} 

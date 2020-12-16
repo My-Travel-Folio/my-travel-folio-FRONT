@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
+import {Container, Col, Row, Form, Button, Card, Alert} from 'react-bootstrap'
 
 
 class NewTravelForm extends React.Component {
@@ -34,7 +35,7 @@ class NewTravelForm extends React.Component {
         this.state.newTravel.startDateFixed,
         this.state.newTravel.endDateFixed)
       .then(() => {
-        this.props.checkIfLoggedIn();
+        // this.props.checkIfLoggedIn();
         this.handleShowMessage()
       })
       .catch((err) => {
@@ -106,49 +107,96 @@ class NewTravelForm extends React.Component {
 
     if(!this.state.showMessage) {
       return(
+
         <div>
-          
-          <h2>Soy el formulario para un travel nuevo</h2>
+          <Container>
 
-          <form onSubmit={this.submitNewTravel}>
+            <Row>
+              <Col className="text-center">
+                <h2>New Travel</h2>
+              </Col>
+            </Row>
 
-            <label htmlFor="travelName">Travel Name: </label>
-            <input 
-              type="text" 
-              name="travelName" 
-              value={this.state.newTravel.travelName} 
-              onChange={(event)=>this.changeHandlerNewTravel(event.target)}
-            />
+            <Row>
+              <Col lg="6" className="mx-auto mt-4">
+                <Card className="p-4 text-left">
 
-            <div>
-              <DatePicker
-                selected={this.state.newTravel.startDate}
-                onChange={this.onChangeStart}
-                dateFormat="dd/MM/yyyy"
-              />
-                <DatePicker
-                selected={this.state.newTravel.endDate}
-                onChange={this.onChangeEnd}
-                dateFormat="dd/MM/yyyy"
-              />
-        
-            </div>
+                  <Form onSubmit={this.submitNewTravel}>
+                    <Row>
+                      <Col>
 
-            <button type="submit">Add New Travel</button>
+                        <Form.Group>
+                          <Form.Label htmlFor="travelName">Travel Name: </Form.Label>
+                            <Form.Control
+                              required
+                              type="text" 
+                              name="travelName" 
+                              value={this.state.newTravel.travelName} 
+                              onChange={(event)=>this.changeHandlerNewTravel(event.target)}>
+                            </Form.Control>
+                        </Form.Group>
 
-          </form>
+                        <Form.Group>
+                          <Row>
+                            <Col>
+                              <Form.Label>Dates: </Form.Label>
+                            </Col>
+                          </Row>
 
+                          <Row className="text-center">
+                            <Col className="ml-3">
+                              <DatePicker
+                                selected={this.state.newTravel.startDate}
+                                onChange={this.onChangeStart}
+                                dateFormat="dd/MM/yyyy"
+                              />
+                            </Col>
+
+                            <Col className="mr-3">
+                              <DatePicker
+                                selected={this.state.newTravel.endDate}
+                                onChange={this.onChangeEnd}
+                                dateFormat="dd/MM/yyyy"
+                              />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+
+                      </Col>
+                    </Row>
+
+                      <Row>
+                        <Col className="text-center">
+                          <Button type="submit">Add New Travel</Button>
+                        </Col>
+                      </Row>
+
+                  </Form>
+
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </div>
+
       )
+
     } else {
       return (
         <div>
-          <p>Your travel has been added successfully.</p>
+          <Container>
+            <Row>
+              <Col>
+                <Alert variant="success">
+                  Your travel has been added successfully.
+                </Alert>
+              </Col>
+            </Row>
+          </Container>
         </div>
       )
     }
   }
-
 }
 
 export default NewTravelForm

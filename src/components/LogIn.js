@@ -52,6 +52,7 @@ class LogIn extends React.Component {
                       <Form.Group>
                         <Form.Label htmlFor="email"></Form.Label>
                         <Form.Control
+                          required
                           type="email" 
                           name="email" 
                           value={this.state.loggingUser.email} 
@@ -62,7 +63,8 @@ class LogIn extends React.Component {
 
                       <Form.Group>
                         <Form.Label htmlFor="password"></Form.Label>
-                        <Form.Control 
+                        <Form.Control
+                          required 
                           type="password" 
                           name="password" 
                           value={this.state.loggingUser.password} 

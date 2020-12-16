@@ -5,7 +5,7 @@ import SingleFile from './SingleFile'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 import TravelService from '../services/TravelService'
-import {Container, Row, Col, ButtonGroup, Button, ListGroup} from 'react-bootstrap'
+import {Container, Row, Col, ButtonGroup, Button, ListGroup, Alert} from 'react-bootstrap'
 
 
 class MySingleTravel extends React.Component {
@@ -113,9 +113,9 @@ class MySingleTravel extends React.Component {
 
     // LIFECYCLE METHODS
 
-    componentDidMount() {
-        this.getSingleFile(this.state.singleFile._id)
-    }
+    // componentDidMount() {
+    //     this.getSingleFile(this.state.singleFile._id)
+    // }
 
     render() {
                         // ESTO CÓMO PUEDE SER QUE ESTÉ FUNCIONANDO AL REVÉS???
@@ -169,12 +169,6 @@ class MySingleTravel extends React.Component {
                                         </ListGroup>
                                 </Col>
                             </Row>
-                            
-
-
-
-
-
                         </Container>
 
                     </div>
@@ -182,7 +176,15 @@ class MySingleTravel extends React.Component {
             } else if (this.state.deleteMessage && !this.state.showSingleFile){
                 return(
                     <div>
-                        <p>Your travel has been removed successfully</p>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <Alert variant="danger">
+                                    Your travel has been removed successfully.
+                                    </Alert>
+                                </Col>
+                            </Row>
+                        </Container>
                     </div>
                 )
             } 
@@ -190,7 +192,7 @@ class MySingleTravel extends React.Component {
             return(
                 <div>
                     <NewFileForm singleTravelID={this.props.singleTravel._id}/>
-                    <button onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</button>
+                    <Button onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</Button>
                 </div>
             )
         }     

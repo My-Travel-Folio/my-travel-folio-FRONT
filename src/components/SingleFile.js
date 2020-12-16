@@ -1,15 +1,13 @@
 import React from 'react'
 
-import ViewFile from './ViewFile'
-
 import FileService from '../services/FileService';
-import {Container, Row, Col, Card, Button} from 'react-bootstrap'
+import {Container, Row, Col, Card, Button, Alert, Modal, Image} from 'react-bootstrap'
 
 class SingleFile extends React.Component {
 
     state= {
-        showViewFile: false,
-        deleteMessage: false
+        deleteMessage: false,
+        show: false
     }
 
     //Conexión Travel & File Service
@@ -25,10 +23,9 @@ class SingleFile extends React.Component {
         })
     }
 
-    handleViewFile = ()=>{
-        this.setState(
-            {showViewFile: !this.state.showViewFile}
-        )
+    setShow = ()=>{
+        // this.setState({showViewFile: !this.state.showViewFile})
+        this.setState({show: !this.state.show})
     }
 
     handleDeleteFile = (fileID)=>{
@@ -42,7 +39,7 @@ class SingleFile extends React.Component {
 
     render() {
 
-        if(!this.state.showViewFile && !this.state.deleteMessage) {
+        if(!this.state.show && !this.state.deleteMessage) {
             return(
                 <div>
                     <Container>
@@ -53,7 +50,7 @@ class SingleFile extends React.Component {
                                     <Card.Title>{this.props.singleFile.fileName}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.fixedDate}</Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.category}</Card.Subtitle>
-                                        <Button className="mr-1" size="sm" onClick={this.handleViewFile}>View File</Button>
+                                        <Button className="mr-1" size="sm" onClick={this.setShow}>View File</Button>
                                         <Button variant="danger" className="ml-1"size="sm" onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</Button>
                                 </Card.Body>
                                 </Card>
@@ -61,30 +58,48 @@ class SingleFile extends React.Component {
                         </Row>
  
                     </Container>
-                    
-                    {/* <div>
-                        <p>Day: {this.props.singleFile.fixedDate}</p>
-                        
-                        {this.props.singleFile.comment && <p>Comment: {this.props.singleFile.comment}</p>}
-                        <p>Category: {this.props.singleFile.category}</p>
-                        <button onClick={this.handleViewFile}>View File</button>
-                        <button onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</button>
 
-                    </div>      */}
                 </div>
             )
-        } else if (this.state.showViewFile && !this.state.deleteMessage){
+        } else if (this.state.show && !this.state.deleteMessage){
             return(
                 <div>
-                    <h2>My Single File</h2>
-                    <button onClick={this.handleViewFile}>Back to {this.props.singleFile.fileName}</button>
-                    <ViewFile imageUrl={this.props.singleFile.imageUrl}/>
+                    <Container>
+                        <Button onClick={this.handleViewFile}>Back to {this.props.singleFile.fileName}</Button>
+
+                        <Modal
+                            size="lg"
+                            centered
+                            show={this.state.show}
+                            onHide={this.setShow}
+                            dialogClassName="modal-100w"
+                            aria-labelledby="example-custom-modal-styling-title"
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title id="example-custom-modal-styling-title">
+                                    {this.props.singleFile.fileName}
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body className="w-100">
+                                <Image className="modal-content" src={this.props.singleFile.imageUrl} aria-label="fileView" ></Image>
+                            </Modal.Body>
+                        </Modal>
+                    </Container>
+
                 </div>
             )
-        } else if (this.state.deleteMessage && !this.state.showViewFile){
+        } else if (this.state.deleteMessage && !this.state.show){
             return(
             <div>
-                <p>Your file has been removed successfully</p>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Alert variant="danger">
+                            Your file has been removed successfully.
+                            </Alert>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
             )
 

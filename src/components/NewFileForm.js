@@ -3,9 +3,7 @@ import DatePicker from 'react-datepicker'
 
 //DEPENDENCIAS
 import FileService from '../services/FileService';
-import {Container, Col, Row, Form, Button, Card} from 'react-bootstrap'
-
-// import DatePicker from "react-datepicker";
+import {Container, Col, Row, Form, Button, Card, Alert} from 'react-bootstrap'
  
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -20,18 +18,14 @@ class NewFileForm extends React.Component {
       comment: '',
       date: new Date(),
       fixedDate: ''
-    }
+    },
+    showMessageFile: false
   }
 
   //Conexión Travel Service
   service = new FileService();
 
-  //NEW TRAVEL FORM CONFIG
-
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ newFile: { ...this.state.newFile, [name]: value } })
-  }
+  //NEW FILE FORM CONFIG
 
   handleFileUpload = e => {
     const uploadData = new FormData();
@@ -40,21 +34,30 @@ class NewFileForm extends React.Component {
       .then(response => {
           return this.setState({ newFile: { ...this.state.newFile, imageUrl: response.secure_url } });
       })
+      .then(() => {
+        this.disabledButton()
+      })
       .catch(err => {
           console.log("Error while uploading the file: ", err);
       });
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    
-    this.service.newFile(this.state.newFile)
-      .then(res => {
-          console.log('added: ', res);
+      this.handleShowMessageFile()
+      this.service.newFile(
+        this.state.newFile)
+      .then((result) => {
+        console.log(result)
       })
-      .catch(err => {
-          console.log("Error while adding the thing: ", err);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ newFile: { ...this.state.newFile, [name]: value } })
   }
 
   onChangeDate = (date) =>{
@@ -78,98 +81,126 @@ class NewFileForm extends React.Component {
     return this.setState({newFile: { ...this.state.newFile, fixedDate: newDateFixed}})
   }
 
-  componentDidMount () {
+  handleShowMessageFile = () => {
+    return this.setState({showMessageFile: !this.state.showMessageFile})
+  }
+
+  disabledButton = () => {
+    document.getElementById('disabled-btn').disabled = false
+  }
+
+  componentDidMount = () => {
     this.getFixedDate()
   }
 
-
   render(){
-    return(
 
-      <div>
-        <Container>
-          <Row>
-            <Col lg="6" className="mx-auto mt-4">
-              <Card className="p-4 text-left">
+    if(!this.state.showMessageFile) {
+      return(
 
-                <Form onSubmit={e =>this.handleSubmit(e)}>
-                  <Row>
-                    <Col>
-
-                      <Form.Group>
-                        <Form.Label htmlFor="fileName">File Name: </Form.Label>
-                        <Form.Control
-                        type="text" 
-                        name="fileName"
-                        onChange={(e)=>this.handleChange(e)}>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Row>
-                        <Col className="mr-4">
-                          <Form.Group >
-                            <Form.Label htmlFor="imageUrl">File: </Form.Label>
-                            <Form.File
-                              // custom
-                              name="imageUrl"
-                              onChange={(e)=>this.handleFileUpload(e)}/>
-                          </Form.Group>
-                        </Col>
-                      </Row>
-
-                      <Form.Group>
-                        <Form.Label htmlFor="category">Category: </Form.Label>
-                        <Form.Control
-                        as="select"
-                        name="category"
-                        onChange={(e)=>this.handleChange(e)}>
-                          <option>Other</option>
-                          <option>Hotel Reservation</option>
-                          <option>Transport Ticket</option>
-                          <option>Experience Ticket</option>                          
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group>
-                        <Form.Label htmlFor="comment">Comment: </Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
+        <div>
+          <Container>
+            <Row>
+              <Col lg="6" className="mx-auto mt-4">
+                <Card className="p-4 text-left">
+  
+                  <Form onSubmit={e =>this.handleSubmit(e)}>
+                    <Row>
+                      <Col>
+  
+                        <Form.Group>
+                          <Form.Label htmlFor="fileName">File Name: </Form.Label>
+                          <Form.Control
+                          required
                           type="text" 
-                          name="comment" 
+                          name="fileName"
                           onChange={(e)=>this.handleChange(e)}>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group>
+                          </Form.Control>
+                        </Form.Group>
+  
                         <Row>
-                          <Col>
-                            <Form.Label>Date: </Form.Label> 
-                          </Col>                                                  
+                          <Col className="mr-4">
+                            <Form.Group >
+                              <Form.Label htmlFor="imageUrl">File: </Form.Label>
+                              <Form.File
+                                required
+                                // custom
+                                name="imageUrl"
+                                onChange={(e)=>this.handleFileUpload(e)}/>
+                            </Form.Group>
+                          </Col>
                         </Row>
-                        <DatePicker
-                        selected={this.state.newFile.date}
-                        onChange={this.onChangeDate}
-                        dateFormat="dd/MM/yyyy"
-                        />
-                      </Form.Group>
-
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col className="mx-auto text-center">
-                      <Button type="submit">Upload file</Button>
-                    </Col>
-                  </Row>
-                
-                </Form>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    )
+  
+                        <Form.Group>
+                          <Form.Label htmlFor="category">Category: </Form.Label>
+                          <Form.Control
+                          required
+                          as="select"
+                          name="category"
+                          onChange={(e)=>this.handleChange(e)}>
+                            <option>Other</option>
+                            <option>Hotel Reservation</option>
+                            <option>Transport Ticket</option>
+                            <option>Experience Ticket</option>                          
+                          </Form.Control>
+                        </Form.Group>
+  
+                        <Form.Group>
+                          <Form.Label htmlFor="comment">Comment: </Form.Label>
+                          <Form.Control
+                            as="textarea"
+                            rows={3}
+                            type="text" 
+                            name="comment" 
+                            onChange={(e)=>this.handleChange(e)}>
+                          </Form.Control>
+                        </Form.Group>
+  
+                        <Form.Group>
+                          <Row>
+                            <Col>
+                              <Form.Label>Date: </Form.Label> 
+                            </Col>                                                  
+                          </Row>
+                          <DatePicker
+                          selected={this.state.newFile.date}
+                          onChange={this.onChangeDate}
+                          dateFormat="dd/MM/yyyy"
+                          />
+                        </Form.Group>
+  
+                      </Col>
+                    </Row>
+  
+                    <Row>
+                      <Col className="text-center">
+                        <Button id="disabled-btn" type="submit" disabled>Upload file</Button>
+                      </Col>
+                    </Row>
+                  
+                  </Form>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
+    
+    } else {
+      return (
+        <div>
+          <Container>
+            <Row>
+              <Col>
+                <Alert variant="success">
+                  Your file has been uploaded successfully.
+                </Alert>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
+    }
   }
 }
 
