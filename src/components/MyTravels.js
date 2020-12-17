@@ -4,7 +4,7 @@ import React from 'react'
 import TravelService from '../services/TravelService'
 import FileService from '../services/FileService';
 import MySingleTravel from './MySingleTravel'
-import {Container, Row, Col, ListGroup, Button} from 'react-bootstrap'
+import {Container, Row, Col, ListGroup} from 'react-bootstrap'
 
 class MyTravels extends React.Component {
 
