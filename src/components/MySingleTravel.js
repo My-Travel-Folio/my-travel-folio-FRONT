@@ -86,6 +86,11 @@ class MySingleTravel extends React.Component {
         this.setState({filteredFiles: other})
     }
 
+    //RESTART FILTERS
+    handleRestartFilters = () => {
+        this.getFilesData(this.props.singleTravel._id)
+    }
+
     //SHOW FILE FORM
     handleNewFileForm = ()=>{
         this.setState(
@@ -147,6 +152,7 @@ class MySingleTravel extends React.Component {
                                         <Button variant="outline-info" onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Button>
                                         <Button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Button>
                                         <Button onClick={this.handleSearchTravelFilesOther}>Other</Button>
+                                        <Button onClick={this.handleRestartFilters}>Restart Filters</Button>  
                                     </ButtonGroup>
                                 </Col>
                             </Row>

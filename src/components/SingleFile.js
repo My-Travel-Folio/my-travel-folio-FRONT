@@ -1,7 +1,8 @@
 import React from 'react'
 
 import FileService from '../services/FileService';
-import {Container, Row, Col, Card, Button, Alert, Modal, Image} from 'react-bootstrap'
+import {Container, Row, Col, Card, Button, Alert, Modal} from 'react-bootstrap'
+import {Image, Transformation, CloudinaryContext} from 'cloudinary-react'
 
 class SingleFile extends React.Component {
 
@@ -45,7 +46,7 @@ class SingleFile extends React.Component {
                     <Container>
                         <Row>
                             <Col>
-                            <Card style={{ width: '18rem' }} className="mx-auto">
+                                <Card style={{ width: '18rem' }} className="mx-auto">
                                 <Card.Body>
                                     <Card.Title>{this.props.singleFile.fileName}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.fixedDate}</Card.Subtitle>
@@ -81,7 +82,17 @@ class SingleFile extends React.Component {
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body className="w-100">
-                                <Image className="modal-content" src={this.props.singleFile.imageUrl} aria-label="fileView" ></Image>
+                                <div>
+                                   
+                                        <CloudinaryContext cloudName="my-travel-folio">
+                                            <Image className="modal-content" publicId="xxl2ghjhhyzmgymuakg9.pdf" >
+                                                <Transformation  flags="attachment:descarga" />
+                                            </Image>
+                                        </CloudinaryContext>
+                                 
+
+                                </div>
+                                
                             </Modal.Body>
                         </Modal>
                     </Container>
