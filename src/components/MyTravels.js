@@ -11,7 +11,7 @@ class MyTravels extends React.Component {
   state={
       singleTravel: {},
       mySingleTravelFiles: [],
-      allTravels: this.props.allTravels
+      // allTravels: this.props.allTravels,
     }
 
     //Conexión Travel & File Service
@@ -27,14 +27,13 @@ class MyTravels extends React.Component {
         this.setState({singleTravel: responseSingleTravel, mySingleTravelFiles: responseTravelFiles})
     })
     .catch((err)=>{
-      console.log(err)
+      return err
     })
   }
 
   //AQUI ---------------------------
   // SINGLE TRAVEL FILES INFO
   getFilesData = (travelID)=>{
-    console.log(typeof(travelID))
     this.fileService.getTravelFiles(travelID)
     .then((responseTravelFiles)=>{
       this.getSingleTravelData(travelID, responseTravelFiles)
@@ -52,8 +51,9 @@ class MyTravels extends React.Component {
   //          RENDER
 
   render() {
+    
 
-    if(!this.state.singleTravel._id) {
+    if(!this.state.singleTravel._id && this.props.allTravels.length !== 0) {
       return (
 
           <div>
@@ -62,7 +62,6 @@ class MyTravels extends React.Component {
                 <Col lg="6" className="mx-auto">
                   <h3>MY TRAVELS</h3>
                   <ListGroup className="my-travels-list">
-                    
                     
                     {this.props.allTravels.sort((a, b)=> new Date(a.startDate) - new Date(b.startDate)).map((travel, index)=>(
                     <ListGroup.Item
@@ -74,26 +73,39 @@ class MyTravels extends React.Component {
                         <p>{travel.startDateFixed}</p>
                     </ListGroup.Item>
                     ))}
+
                   </ListGroup>
                 </Col>
               </Row>
             </Container>
-
-
           </div>
 
       )
-    } else {
+    } else if (this.state.singleTravel._id && this.props.allTravels.length !== 0){
       return(
         <div> 
-          <Button className="mb-3" onClick={this.clearSingleTravel}>Back to my travels</Button>
+          {/* <Button className="mb-3" onClick={this.clearSingleTravel}>Back to my travels</Button> */}
           <h2>{this.state.singleTravel.travelName}</h2>
           <h5>{this.state.singleTravel.startDateFixed} - {this.state.singleTravel.endDateFixed}</h5>
-          <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles} getFilesData={this.getFilesData}/>
+          <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles} getFilesData={this.getFilesData} clearSingleTravel={this.clearSingleTravel}/>
         </div>
-        
       )  
-    }  
+
+    } else if (this.props.allTravels.length === 0 && !this.state.singleTravel._id){
+      return(
+         <div>
+          <Container>
+            <Row>
+              <Col>
+                  <p>You haven't added any travels yet. Add your next destination so you can organize all your files.</p>
+              </Col>
+            </Row>
+          </Container>
+         </div> 
+
+      )
+
+    }
   }
 }
 

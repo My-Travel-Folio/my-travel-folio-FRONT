@@ -14,7 +14,7 @@ class MyProfile extends React.Component {
     state={
         showNewTravelForm:  false,
         showAllTravels: true, 
-        allTravels: []
+        allTravels: [],
     }
 
     //Conexión Travel Service
@@ -57,7 +57,7 @@ class MyProfile extends React.Component {
 
     render(){
 
-        const buttonText = !this.state.showNewTravelForm ? 'Add new travel' : 'Back to my travels'
+        const buttonText = !this.state.showNewTravelForm ? 'ADD NEW TRAVEL' : 'SHOW ALL TRAVELS'
 
         return(
             <div>
@@ -72,7 +72,7 @@ class MyProfile extends React.Component {
 
                             <Row className="mx-auto">
                                 <Col>
-                                    <Button className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
+                                    <Button variant="secondary" className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
                                 </Col>
                             </Row>
 

@@ -167,7 +167,7 @@ class NewTravelForm extends React.Component {
 
                       <Row>
                         <Col className="text-center">
-                          <Button type="submit">Add New Travel</Button>
+                          <Button variant="outline-secondary" type="submit">Add New Travel</Button>
                         </Col>
                       </Row>
 

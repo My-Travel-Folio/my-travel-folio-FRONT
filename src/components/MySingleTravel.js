@@ -5,7 +5,7 @@ import SingleFile from './SingleFile'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 import TravelService from '../services/TravelService'
-import {Container, Row, Col, ButtonGroup, Button, ListGroup, Alert} from 'react-bootstrap'
+import {Container, Row, Col, ButtonGroup, Button, ListGroup, Alert, DropdownButton, Dropdown} from 'react-bootstrap'
 
 
 class MySingleTravel extends React.Component {
@@ -48,7 +48,6 @@ class MySingleTravel extends React.Component {
         this.travelService.deleteTravel(travelID)
         .then(()=>{
             this.setState({deleteMessage: true})
-            console.log("Travel removed")
         })
     }
 
@@ -112,15 +111,9 @@ class MySingleTravel extends React.Component {
     }
 
     handleDeleteTravel = (travelID)=>{
-        console.log(travelID)
         this.deleteTravel(travelID)
     }
 
-    // LIFECYCLE METHODS
-
-    // componentDidMount() {
-    //     this.getSingleFile(this.state.singleFile._id)
-    // }
 
     render() {
                         // ESTO CÓMO PUEDE SER QUE ESTÉ FUNCIONANDO AL REVÉS???
@@ -129,7 +122,7 @@ class MySingleTravel extends React.Component {
             if(this.state.showSingleFile) {
                 return (
                     <div>
-                        <Button onClick={this.handleSingleFile}>ALL FILES</Button>
+                        <Button className="mt-2" onClick={this.handleSingleFile}>SHOW ALL FILES</Button>
                         <SingleFile singleFile={this.state.singleFile} singleTravelID={this.props.singleTravel._id} />
                     </div>
                 )
@@ -141,26 +134,38 @@ class MySingleTravel extends React.Component {
                             <Row>
                                 <Col className="mt-2 mb-2">
                                     <Button variant="outline-danger" onClick={()=>this.handleDeleteTravel(this.props.singleTravel._id)}>Delete Travel</Button>
-                                    <Button onClick={this.handleNewFileForm}>Add file</Button>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col className="mt-2 mb-2">
-                                    <p>CATEGORIES FILTER:</p>
-                                    <ButtonGroup  className="mb-2">
+
+                                        <DropdownButton className="mb-3" variant="secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" inline>
+                                            <Dropdown.Item onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.handleSearchTravelFilesOther}>Other</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.handleRestartFilters}>Restart Filters</Dropdown.Item>
+                                        </DropdownButton>
+
+                                        <Button className="mb-3" onClick={this.props.clearSingleTravel}>SHOW ALL MY TRAVELS</Button>
+
+                                    
+
+                                    {/* <ButtonGroup  className="mb-2">
                                         <Button variant="outline-danger" onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Button>
                                         <Button variant="outline-info" onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Button>
                                         <Button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Button>
                                         <Button onClick={this.handleSearchTravelFilesOther}>Other</Button>
-                                        <Button onClick={this.handleRestartFilters}>Restart Filters</Button>  
-                                    </ButtonGroup>
+                                        <Button onClick={this.handleRestartFilters}>Restart Filters</Button>
+                                    </ButtonGroup> */}
+                                   
                                 </Col>
                             </Row>
                             <Row>
                                 <Col lg="6" className="mx-auto">
                                     <ListGroup className="">
-                                        <ListGroup.Item>
-                                            <h4>MY FILES</h4>
+                                        <ListGroup.Item action>
+                                            <h4 onClick={this.handleNewFileForm}>ADD A NEW FILE</h4>
                                         </ListGroup.Item>
                                             {this.state.filteredFiles.sort((a, b)=> new Date(a.date) - new Date(b.date)).map((singleFile, index)=>(
                                             <ListGroup.Item 

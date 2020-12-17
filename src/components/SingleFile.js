@@ -45,7 +45,7 @@ class SingleFile extends React.Component {
                 <div>
                     <Container>
                         <Row>
-                            <Col>
+                            <Col className="mt-4">
                                 <Card style={{ width: '18rem' }} className="mx-auto">
                                 <Card.Body>
                                     <Card.Title>{this.props.singleFile.fileName}</Card.Title>
