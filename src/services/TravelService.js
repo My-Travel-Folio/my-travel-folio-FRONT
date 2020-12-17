@@ -5,7 +5,8 @@ class TravelService {
 
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000",
+      // baseURL: "http://localhost:3000",
+      baseURL: "https://my-travel-folio-back.herokuapp.com",
       withCredentials: true
     });
 
