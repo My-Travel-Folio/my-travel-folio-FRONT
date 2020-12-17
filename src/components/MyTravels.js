@@ -1,4 +1,5 @@
 import React from 'react'
+import './MyTravels.css'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService'
@@ -60,8 +61,16 @@ class MyTravels extends React.Component {
             <Container>
               <Row >
                 <Col lg="6" className="mx-auto">
-                  <h3>MY TRAVELS</h3>
-                  <ListGroup className="my-travels-list">
+
+
+                
+                  <Row>
+                    <Col className="mb-3">
+                      <h3>MY TRAVELS</h3>                     
+                    </Col>
+                  </Row>
+
+                  <ListGroup className="my-travels-list ">
                     
                     {this.props.allTravels.sort((a, b)=> new Date(a.startDate) - new Date(b.startDate)).map((travel, index)=>(
                     <ListGroup.Item

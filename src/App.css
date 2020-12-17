@@ -36,5 +36,12 @@
     transform: rotate(360deg);
   }
 }
+______________________________________________________
+
+/* SIGN UP */
+
+.sign-up-card{
+  opacity: 0.9 !important;
+}
 
 

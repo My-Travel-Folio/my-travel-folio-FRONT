@@ -174,7 +174,7 @@ class NewFileForm extends React.Component {
   
                     <Row>
                       <Col className="text-center">
-                        <Button id="disabled-btn" type="submit" disabled>Upload file</Button>
+                        <Button variant="secondary" id="disabled-btn" type="submit" disabled>Upload file</Button>
                       </Col>
                     </Row>
                   
@@ -192,7 +192,7 @@ class NewFileForm extends React.Component {
           <Container>
             <Row>
               <Col>
-                <Alert variant="success">
+                <Alert className="mt-4" variant="success">
                   Your file has been uploaded successfully.
                 </Alert>
               </Col>

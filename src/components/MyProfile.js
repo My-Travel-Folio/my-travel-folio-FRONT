@@ -3,6 +3,7 @@ import NewTravelForm from './NewTravelForm'
 import MyTravels from './MyTravels'
 
 
+
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
 import {Container, Col, Row, Button, Card} from 'react-bootstrap'
@@ -64,15 +65,15 @@ class MyProfile extends React.Component {
                 <Container>
                     <Row className="mt-4">
                         <Col>
-                            <Row className="text-left">
+                            <Row className="mx-auto">
                                 <Col>
-                                    <p>{this.props.isLogged.email && `Welcome to Travel Folio, ${this.props.isLogged.name}`}</p>
+                                    <h4>{this.props.isLogged.email && `Welcome to Travel Folio, ${this.props.isLogged.name}`}</h4>
                                 </Col>
                             </Row>
 
-                            <Row className="mx-auto">
+                            <Row className="mx-auto mt-3">
                                 <Col>
-                                    <Button variant="secondary" className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
+                                    <Button variant="dark" className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
                                 </Col>
                             </Row>
 

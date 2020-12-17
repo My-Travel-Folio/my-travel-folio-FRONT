@@ -38,14 +38,14 @@ class SignUp extends React.Component {
         <Container>
           <Row>
             <Col lg="6" className="mx-auto">
-              <Card className="p-4 mt-4">
+              <Card className="p-4 mt-4 sign-up-card">
                 <Row>
                   <Col>
                   <h2>SIGN UP</h2>
                   </Col>
                 </Row>
 
-                <Form onSubmit={this.submitSignUp}>
+                <Form className="sign-up-form"onSubmit={this.submitSignUp}>
                   <Row>
                     <Col>
                       <Form.Group>

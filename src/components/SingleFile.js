@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FileService from '../services/FileService';
-import {Container, Row, Col, Card, Button, Alert, Modal} from 'react-bootstrap'
+import {Container, Row, Col, Card, Button, Alert, Modal, ButtonGroup} from 'react-bootstrap'
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react'
 
 class SingleFile extends React.Component {
@@ -45,14 +45,17 @@ class SingleFile extends React.Component {
                 <div>
                     <Container>
                         <Row>
-                            <Col className="mt-4">
-                                <Card style={{ width: '18rem' }} className="mx-auto">
+                            <Col lg="6" className="mt-4 mx-auto">
+                                <Card >
                                 <Card.Body>
                                     <Card.Title>{this.props.singleFile.fileName}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.fixedDate}</Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">{this.props.singleFile.category}</Card.Subtitle>
-                                        <Button className="mr-1" size="sm" onClick={this.setShow}>View File</Button>
-                                        <Button variant="danger" className="ml-1"size="sm" onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</Button>
+                                    <Card.Subtitle className="mb-4 mt-4 text-muted">{this.props.singleFile.comment}</Card.Subtitle>
+                                        <ButtonGroup>
+                                            <Button variant="outline-primary" className="mr-4 mx-auto" size="sm" onClick={this.setShow}>View File</Button>
+                                            <Button variant="outline-danger" className="ml-4 mx-auto" size="sm" onClick={()=>this.handleDeleteFile(this.props.singleFile._id)}>Delete File</Button>
+                                        </ButtonGroup>
                                 </Card.Body>
                                 </Card>
                             </Col>
@@ -105,7 +108,7 @@ class SingleFile extends React.Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Alert variant="danger">
+                            <Alert className="mt-4" variant="danger">
                             Your file has been removed successfully.
                             </Alert>
                         </Col>

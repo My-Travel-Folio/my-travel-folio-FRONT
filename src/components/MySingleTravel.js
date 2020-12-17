@@ -122,7 +122,7 @@ class MySingleTravel extends React.Component {
             if(this.state.showSingleFile) {
                 return (
                     <div>
-                        <Button className="mt-2" onClick={this.handleSingleFile}>SHOW ALL FILES</Button>
+                        <Button className="mt-2" variant="outline-primary" onClick={this.handleSingleFile}>SHOW ALL FILES</Button>
                         <SingleFile singleFile={this.state.singleFile} singleTravelID={this.props.singleTravel._id} />
                     </div>
                 )
@@ -139,7 +139,7 @@ class MySingleTravel extends React.Component {
                             <Row>
                                 <Col className="mt-2 mb-2">
 
-                                        <DropdownButton className="mb-3" variant="secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" >
+                                        <DropdownButton className="mb-3" variant="outline-secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" >
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Dropdown.Item>
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Dropdown.Item>
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Dropdown.Item>
@@ -147,7 +147,7 @@ class MySingleTravel extends React.Component {
                                             <Dropdown.Item onClick={this.handleRestartFilters}>Restart Filters</Dropdown.Item>
                                         </DropdownButton>
 
-                                        <Button className="mb-3" onClick={this.props.clearSingleTravel}>SHOW ALL MY TRAVELS</Button>
+                                        <Button variant="outline-primary" className="mb-3" onClick={this.props.clearSingleTravel}>SHOW ALL MY TRAVELS</Button>
 
                                     
 
@@ -190,7 +190,7 @@ class MySingleTravel extends React.Component {
                         <Container>
                             <Row>
                                 <Col>
-                                    <Alert variant="danger">
+                                    <Alert className="mt-4" variant="danger">
                                     Your travel has been removed successfully.
                                     </Alert>
                                 </Col>
@@ -202,8 +202,9 @@ class MySingleTravel extends React.Component {
         } else if(this.state.showNewFileForm) {
             return(
                 <div>
+                    <Button className="mt-3" variant="outline-secondary" onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</Button>
                     <NewFileForm singleTravelID={this.props.singleTravel._id}/>
-                    <Button onClick={()=>this.handleBackToTravel(this.props.singleTravel._id)}>Back to {this.props.singleTravel.travelName}</Button>
+                    
                 </div>
             )
         }     

@@ -144,7 +144,7 @@ class NewTravelForm extends React.Component {
                           </Row>
 
                           <Row className="text-center">
-                            <Col className="ml-3">
+                            <Col  xs="12" md="6" lg="6" xl="6">
                               <DatePicker
                                 selected={this.state.newTravel.startDate}
                                 onChange={this.onChangeStart}
@@ -152,7 +152,7 @@ class NewTravelForm extends React.Component {
                               />
                             </Col>
 
-                            <Col className="mr-3">
+                            <Col  xs="12" md="6" lg="6" xl="6">
                               <DatePicker
                                 selected={this.state.newTravel.endDate}
                                 onChange={this.onChangeEnd}
