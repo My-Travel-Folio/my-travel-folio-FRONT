@@ -5,7 +5,7 @@ import SingleFile from './SingleFile'
 //DEPENDENCIAS
 import FileService from '../services/FileService';
 import TravelService from '../services/TravelService'
-import {Container, Row, Col, ButtonGroup, Button, ListGroup, Alert, DropdownButton, Dropdown} from 'react-bootstrap'
+import {Container, Row, Col, Button, ListGroup, Alert, DropdownButton, Dropdown} from 'react-bootstrap'
 
 
 class MySingleTravel extends React.Component {
@@ -139,7 +139,7 @@ class MySingleTravel extends React.Component {
                             <Row>
                                 <Col className="mt-2 mb-2">
 
-                                        <DropdownButton className="mb-3" variant="secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" inline>
+                                        <DropdownButton className="mb-3" variant="secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" >
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Dropdown.Item>
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Dropdown.Item>
                                             <Dropdown.Item onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Dropdown.Item>

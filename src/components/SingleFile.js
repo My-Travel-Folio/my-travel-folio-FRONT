@@ -85,7 +85,7 @@ class SingleFile extends React.Component {
                                 <div>
                                    
                                         <CloudinaryContext cloudName="my-travel-folio">
-                                            <Image className="modal-content" publicId="xxl2ghjhhyzmgymuakg9.pdf" >
+                                            <Image className="modal-content" publicId="snztrwzejnkcwqcdzqaz.jpeg" >
                                                 <Transformation  flags="attachment:descarga" />
                                             </Image>
                                         </CloudinaryContext>
