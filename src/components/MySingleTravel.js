@@ -139,25 +139,13 @@ class MySingleTravel extends React.Component {
                             <Row>
                                 <Col className="mt-2 mb-2">
 
-                                        <DropdownButton className="mb-3" variant="outline-secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" >
-                                            <Dropdown.Item onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Dropdown.Item>
-                                            <Dropdown.Item onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Dropdown.Item>
-                                            <Dropdown.Item onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Dropdown.Item>
-                                            <Dropdown.Item onClick={this.handleSearchTravelFilesOther}>Other</Dropdown.Item>
-                                            <Dropdown.Item onClick={this.handleRestartFilters}>Restart Filters</Dropdown.Item>
-                                        </DropdownButton>
-
-                                        <Button variant="outline-primary" className="mb-3" onClick={this.props.clearSingleTravel}>SHOW ALL MY TRAVELS</Button>
-
-                                    
-
-                                    {/* <ButtonGroup  className="mb-2">
-                                        <Button variant="outline-danger" onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Button>
-                                        <Button variant="outline-info" onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Button>
-                                        <Button onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Button>
-                                        <Button onClick={this.handleSearchTravelFilesOther}>Other</Button>
-                                        <Button onClick={this.handleRestartFilters}>Restart Filters</Button>
-                                    </ButtonGroup> */}
+                                    <DropdownButton className="mb-3" variant="outline-secondary" id="dropdown-basic-button" title="CATEGORIES FILTERS" >
+                                        <Dropdown.Item onClick={this.handleSearchTravelFilesHotel}>Hotel Reservation</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handleSearchTravelFilesExperience}>Experience Ticket</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handleSearchTravelFilesTransport}>Transport Ticket</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handleSearchTravelFilesOther}>Other</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handleRestartFilters}>Restart Filters</Dropdown.Item>
+                                    </DropdownButton>
                                    
                                 </Col>
                             </Row>

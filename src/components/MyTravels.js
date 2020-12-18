@@ -5,7 +5,7 @@ import './MyTravels.css'
 import TravelService from '../services/TravelService'
 import FileService from '../services/FileService';
 import MySingleTravel from './MySingleTravel'
-import {Container, Row, Col, ListGroup} from 'react-bootstrap'
+import {Container, Row, Col, ListGroup, Button} from 'react-bootstrap'
 
 class MyTravels extends React.Component {
 
@@ -44,9 +44,8 @@ class MyTravels extends React.Component {
   // EMPTY STATE & GET TRAVEL DATA AGAIN
   clearSingleTravel = async () => {
     await this.setState({mySingleTravelFiles: []})
-    await this.props.getTravelData()
-    this.setState({singleTravel: {}})
-    
+    await this.setState({singleTravel: {}})
+    this.props.getTravelData()
   }
 
   //          RENDER
@@ -62,8 +61,6 @@ class MyTravels extends React.Component {
               <Row >
                 <Col lg="6" className="mx-auto">
 
-
-                
                   <Row>
                     <Col className="mb-3">
                       <h3>MY TRAVELS</h3>                     
@@ -93,7 +90,7 @@ class MyTravels extends React.Component {
     } else if (this.state.singleTravel._id && this.props.allTravels.length !== 0){
       return(
         <div> 
-          {/* <Button className="mb-3" onClick={this.clearSingleTravel}>Back to my travels</Button> */}
+          <Button className="mb-3" variant="outline-primary" onClick={this.clearSingleTravel}>SHOW ALL MY TRAVELS</Button>
           <h2>{this.state.singleTravel.travelName}</h2>
           <h5>{this.state.singleTravel.startDateFixed} - {this.state.singleTravel.endDateFixed}</h5>
           <MySingleTravel singleTravel={this.state.singleTravel} mySingleTravelFiles={this.state.mySingleTravelFiles} getFilesData={this.getFilesData} clearSingleTravel={this.clearSingleTravel}/>

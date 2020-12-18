@@ -1,4 +1,5 @@
 import React from 'react'
+import './Footer.css'
 
 //DEPENDENCIAS
 // import { Link } from 'react-router-dom';
@@ -11,8 +12,8 @@ const Footer = ()=>{
       
           <Navbar className="mt-5" collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="bottom">
                   <Nav className="mx-auto">
-                    <Nav.Item className="text-light">
-                      This Is Us
+                    <Nav.Item className="text-light footer">
+                       © My Travel Folio, 2020
                     </Nav.Item>
                   </Nav>
             </Navbar>

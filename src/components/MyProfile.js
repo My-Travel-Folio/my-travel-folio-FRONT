@@ -6,7 +6,7 @@ import MyTravels from './MyTravels'
 
 //DEPENDENCIAS
 import TravelService from '../services/TravelService';
-import {Container, Col, Row, Button, Card} from 'react-bootstrap'
+import {Container, Col, Row, Button, Card, Spinner} from 'react-bootstrap'
 
 // import NewTravelForm from './NewTravelForm';
 
@@ -14,7 +14,7 @@ class MyProfile extends React.Component {
 
     state={
         showNewTravelForm:  false,
-        showAllTravels: true, 
+        showAllTravels: false, 
         allTravels: [],
     }
 
@@ -27,6 +27,9 @@ class MyProfile extends React.Component {
         this.travelService.getAllTravels(this.props.isLogged._id)
         .then((response)=>{
             this.setState({allTravels: response})
+        })
+        .then(() => {
+            this.handleAllTravels()
         })
     }
         
@@ -50,7 +53,7 @@ class MyProfile extends React.Component {
 
     handleAllTravels = ()=>{
         this.setState(
-            {showAllTravels: !this.state.showAllTravels}
+            {showAllTravels: true}
         )
     }
 
@@ -59,9 +62,9 @@ class MyProfile extends React.Component {
     render(){
 
         const buttonText = !this.state.showNewTravelForm ? 'ADD NEW TRAVEL' : 'SHOW ALL TRAVELS'
-
-        return(
-            <div>
+        
+        if(this.state.showNewTravelForm) {
+            return(
                 <Container>
                     <Row className="mt-4">
                         <Col>
@@ -81,26 +84,78 @@ class MyProfile extends React.Component {
                                 <Col>
                                     <Card className="mt-4 mb-5 p-4 text-center" >
                                         <Card.Body>
-        
-                                            {this.state.showNewTravelForm 
-                                            ? <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
-                                            : <MyTravels allTravels={this.state.allTravels} getTravelData={this.getTravelData} />}
-
+                                            <NewTravelForm isLogged={this.props.isLogged} checkIfLoggedIn={this.props.checkIfLoggedIn}/>
                                         </Card.Body>
                                     </Card>
                                 </Col>
                             </Row>
-
                         </Col>
                     </Row>
                 </Container>
+            )
+        } else {
+            if(this.state.showAllTravels){
+                return(
+                    <Container>
+                        <Row className="mt-4">
+                            <Col>
+                                <Row className="mx-auto">
+                                    <Col>
+                                        <h4>{this.props.isLogged.email && `Welcome to Travel Folio, ${this.props.isLogged.name}`}</h4>
+                                    </Col>
+                                </Row>
 
+                            <Row className="mx-auto mt-3">
+                                <Col>
+                                    <Button variant="dark" className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
+                                </Col>
+                            </Row>
 
+                            <Row className="mx-auto">
+                                <Col>
+                                    <Card className="mt-4 mb-5 p-4 text-center" >
+                                        <Card.Body>
+                                            <MyTravels allTravels={this.state.allTravels} getTravelData={this.getTravelData} />
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Container>
+                )
+            } else {
+                return(
+                    <Container>
+                        <Row className="mt-4">
+                            <Col>
+                                <Row className="mx-auto">
+                                    <Col>
+                                        <h4>{this.props.isLogged.email && `Welcome to Travel Folio, ${this.props.isLogged.name}`}</h4>
+                                    </Col>
+                                </Row>
 
+                                <Row className="mx-auto mt-3">
+                                    <Col>
+                                        <Button variant="dark" className="text-center" onClick={this.handleNewTravelForm}>{buttonText}</Button>
+                                    </Col>
+                                </Row>
 
-
-            </div>
-        )
+                                <Row className="mx-auto">
+                                    <Col>
+                                        <Card className="mt-4 mb-5 p-4 text-center" >
+                                            <Card.Body>
+                                                <Spinner animation="border" />
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Container>
+                )
+            }
+        }
     }
 }
 
